@@ -4,6 +4,10 @@
     "node": "^19.1.0"
   },
   "scripts": {
-    "start": ""
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
 }
