@@ -1,15 +1,29 @@
 const express = require('express'); 
 const app = express(); 
 const path = require('path'); 
-const { logger } = require('./middleware/logger')
-const PORT = process.env.PORT || 3000; 
+const { logger } = require('./middleware/logger');
+const errorHandler = require('./middleware/errorHandler'); 
+// const cookieParser = require('cookie-parser'); 
+const cors = require('cors'); 
+const corsOptions = require('./config/corsOptions');
+const PORT = process.env.PORT || 6996;
 
+// make static assets public
 app.use('/', express.static(path.join(__dirname, '/public'))); 
 
-app.use(logger); // Log all routes 
+// log all requests
+app.use(logger); 
 
+// allow us to parse cookies
+// app.use(cookieParser); 
+
+// app.use(cors()); // -> public API,   any origin can request resources
+app.use(cors(corsOptions)); 
+
+// landing page
 app.get('/', require('./routes/root.js'));
 
+// 404 
 app.all('*', (req, res) => {
   res.status(404); 
   if (req.accepts('html')) {
@@ -19,8 +33,11 @@ app.all('*', (req, res) => {
   } else {
     res.type('text').send('404 Not Found');  
   }
-}); 
+});
 
+app.use(errorHandler); // middlewares are applied from top to bottom 
+
+// Listen
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`); 
 }); 

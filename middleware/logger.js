@@ -6,7 +6,7 @@ const fsPromises = require('fs').promises;
 const path = require('path'); 
 
 const logEvents = async (message, logFileName) => {
-  const entry = `${Date()} | ${uuid()} | ${message} \n`; 
+  const entry = `${Date()}\t${uuid()} | ${message} \n`; 
   try {
     const folderPath = path.join(__dirname, '..', 'logs', logFileName);  
     if (!fs.existsSync(folderPath)) {
