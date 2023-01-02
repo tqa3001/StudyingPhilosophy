@@ -5,16 +5,15 @@ const fs = require('fs');
 const fsPromises = require('fs').promises; 
 const path = require('path'); 
 
-const logEvents = async (message, logFileName) => {
+const logEvents = async (message, logFileName) => { // Question: why do we need functions to be async?
   const entry = `${Date()}\t${uuid()} | ${message} \n`; 
   try {
-    const folderPath = path.join(__dirname, '..', 'logs', logFileName);  
+    const folderPath = path.join(__dirname, '..', 'logs');  
     if (!fs.existsSync(folderPath)) {
       await fsPromises.mkdir(folderPath);
     }
     await fsPromises.appendFile(path.join(folderPath, logFileName), entry); 
-  }
-  catch (err) {
+  } catch (err) {
     console.log('Error: ', err); 
   }
 }; 
