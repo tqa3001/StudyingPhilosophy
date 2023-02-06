@@ -6,17 +6,17 @@ const userSchema = new mongoose.Schema({
     required: true 
   }, 
   password: {
-    type: String,  // SchemaType
+    type: String,  
     required: true 
   }, 
-  // roles: [{
-  //   type: String, 
-  //   default: "Employee"
-  // }], 
   active: {
     type: Boolean, 
     default: true 
   }, 
+  sources: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Source' }], 
+    default: [], 
+  }
 }); 
 
 // Modularized, time to export. 

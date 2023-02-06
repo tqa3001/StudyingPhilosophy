@@ -1,0 +1,1 @@
+This folder contains custom mongoose plugins since I don't want to npm install too many irrelevant things. 

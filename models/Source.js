@@ -1,6 +1,5 @@
 /* Schema for thought bubbles */ 
 const mongoose = require('mongoose'); 
-const commentSchema = require('./Comment'); 
 
 // Note-to-self: before defining schemas, go back to the specs and think how to best structure the data. 
 const bubbleSchema = new mongoose.Schema( {  
@@ -17,7 +16,11 @@ const bubbleSchema = new mongoose.Schema( {
     type: String, 
     default: "Add description"
   }, 
-  comments: [commentSchema] // array of subdocuments
+  comments: {
+    // type: [commentSchema],  // array of subdocuments, not prefered? 
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+    required: false 
+  }
 }); 
 
 module.exports = mongoose.model('Bubble', bubbleSchema); 
