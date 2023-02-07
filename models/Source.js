@@ -18,9 +18,9 @@ const bubbleSchema = new mongoose.Schema( {
   }, 
   comments: {
     // type: [commentSchema],  // array of subdocuments, not prefered? 
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Note' }],
     required: false 
   }
 }); 
 
-module.exports = mongoose.model('Bubble', bubbleSchema); 
+module.exports = mongoose.model('Source', bubbleSchema); 

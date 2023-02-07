@@ -8,4 +8,4 @@ const commentSchema = new mongoose.Schema({
   }
 }, { timestamps: true }); // second POJO: options. timestamps = true -> auto add createdAt, updatedAt 
 
-module.exports = mongoose.model('Comment', commentSchema); 
+module.exports = mongoose.model('Note', commentSchema); 

@@ -8,6 +8,12 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors'); 
 const corsOptions = require('./config/corsOptions');
 const PORT = process.env.PORT || 6996;
+const mongoose = require('mongoose'); 
+
+// connect to database
+mongoose.connect(process.env.DATABASE_URI) 
+  .then((data) => { console.log('successfully connected to DB')}) 
+  .catch((reason) => { console.log(reason); })
 
 // make static assets public
 app.use('/', express.static(path.join(__dirname, '/public')));  
@@ -15,14 +21,18 @@ app.use('/', express.static(path.join(__dirname, '/public')));
 // log all requests
 app.use(logger); 
 
-// allow us to parse cookies
+// parsers
 app.use(cookieParser()); 
+app.use(express.json()); 
 
-// app.use(cors()); // -> public API,   any origin can request resources
+// app.use(cors()); // -> public API, any origin can request resources
 app.use(cors(corsOptions)); 
 
 // landing page
-app.get('/', require('./routes/root.js'));
+app.get('/', require('./routes/root'));
+
+// user
+app.use('/user', require('./routes/userRoutes'))
 
 // 404 
 // question: what is the purpose of checking "accepts"? what would go wrong if we don't do so? 
