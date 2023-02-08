@@ -1,4 +1,4 @@
-node_modules
-logs
-.env
-cringe.js
+/backend/node_modules
+/backend/logs
+/backend/.env
+/backend/cringe.js
