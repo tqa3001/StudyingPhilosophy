@@ -8,6 +8,10 @@ export default defineConfig((mode) => {
     plugins: [react()],
     server: {
       port: env.FRONTEND_PORT
+    }, 
+    define: {
+      FRONTEND_PORT: env.FRONTEND_PORT,
+      BACKEND_PORT: env.BACKEND_PORT
     }
   }
 })
