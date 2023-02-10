@@ -1,23 +1,16 @@
 import { Outlet } from "react-router-dom";
+import DashboardHeader from "./DashboardHeader"
+import DashboardFooter from "./DashboardFooter"
 
 export default function DashboardLayout() {
   return (
     <>
-      <header>
-        <h1 className="text-2xl font-bold">Rewrite</h1>
-        <nav>
-          <Link to="/dashboard/sources/new">Create</Link>
-          <Link to="/dashboard/sources">My sources</Link>
-          <Link to="/logout">Logout</Link>
-        </nav>
-      </header>
+      <DashboardHeader /> 
       <main>
         <h1 className="text-3xl">Dashboard Layout</h1>
         <Outlet />
       </main>
-      <footer>
-        <h1>Dashboard footer</h1>
-      </footer>
+      <DashboardFooter />
     </>
   )
 }

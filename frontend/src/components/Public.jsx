@@ -13,7 +13,8 @@ export default function Public() {
         </p>
       </main>
       <footer>
-        <Link to="/login">Login</Link>
+        <Link to="/login">Login</Link> <br /> {/* reloadDocument -> skip client-side routing -> normal a href */}
+        <Link to="/dashboard">Dashboard (cringe af)</Link> {/* component for /dashboard is assigned in App.jsx */}
       </footer>
     </section>
   )

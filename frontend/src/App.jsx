@@ -3,14 +3,29 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import Public from './components/Public'
-import Login from './components/Login'
+import Login from './features/auth/Login'
+import DashboardLayout from './components/DashboardLayout'
+import Welcome from './features/auth/Welcome'
+import ListSources from './features/sources/ListSources'
+import Settings from './features/userProfile/Settings'
 
-export default function App() {
+export default function App() {  /* Define layout for client-side routing */
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Public />}></Route>  
-        <Route path="/login" element={<Login />}></Route>
+      <Route path="/" element={<Layout />}>  
+        <Route index element={<Public />} />  { /* Each route must have an index (?) */}
+        <Route path="login" element={<Login />} />  
+        <Route path="dashboard" element={<DashboardLayout />}>
+          <Route index element={<Welcome />} />          
+          {/* Sources */ }
+          <Route path="sources">
+            <Route index element={<ListSources />} />
+          </Route>
+          {/* User Profile */}
+          <Route path="userProfile">
+            <Route index element={<Settings />} />
+          </Route>
+        </Route> 
       </Route>
     </Routes>
   )
