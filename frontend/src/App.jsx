@@ -7,7 +7,7 @@ import Login from './features/auth/Login'
 import DashboardLayout from './components/DashboardLayout'
 import Welcome from './features/auth/Welcome'
 import ListSources from './features/sources/ListSources'
-import Settings from './features/userProfile/Settings'
+import Settings from './features/users/Settings'
 
 export default function App() {  /* Define layout for client-side routing */
   return (
@@ -21,8 +21,8 @@ export default function App() {  /* Define layout for client-side routing */
           <Route path="sources">
             <Route index element={<ListSources />} />
           </Route>
-          {/* User Profile */}
-          <Route path="userProfile">
+          {/* Users */}
+          <Route path="users">
             <Route index element={<Settings />} />
           </Route>
         </Route> 

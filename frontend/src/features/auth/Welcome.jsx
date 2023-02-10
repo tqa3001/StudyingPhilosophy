@@ -9,7 +9,7 @@ export default function Welcome() {
       <h2>Today is {formatted_date}.</h2> 
       <br/> 
       <Link to="sources">My Sources</Link>
-      <Link to="userProfile">My Profile</Link>
+      <Link to="users">My Profile</Link>
     </div>
   )
 }
