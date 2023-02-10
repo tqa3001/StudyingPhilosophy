@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
-import Public from './components/Public'
+import Landing from './components/Landing'
 import Login from './features/auth/Login'
 import DashboardLayout from './components/DashboardLayout'
 import Welcome from './features/auth/Welcome'
@@ -13,7 +13,7 @@ export default function App() {  /* Define layout for client-side routing */
   return (
     <Routes>
       <Route path="/" element={<Layout />}>  
-        <Route index element={<Public />} />  { /* Each route must have an index (?) */}
+        <Route index element={<Landing />} />  { /* Each route must have an index (?) */}
         <Route path="login" element={<Login />} />  
         <Route path="dashboard" element={<DashboardLayout />}>
           <Route index element={<Welcome />} />          

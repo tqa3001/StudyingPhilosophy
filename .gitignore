@@ -1,8 +1,10 @@
 # Frontend
 /frontend/node_modules
+/frontend/.env
 
 # Backend
 /backend/node_modules
 /backend/logs
 /backend/.env
 /backend/cringe.js
+
