@@ -25,7 +25,7 @@ export default function App() {  /* Define layout for client-side routing */
           {/* Users */}
           <Route path="users">
             <Route index element={<ListUsers />} />
-            <Route path=":id" element={<User />} />
+            {/* <Route path=":id" element={<User />} /> */}
           </Route>
         </Route> 
       </Route>
