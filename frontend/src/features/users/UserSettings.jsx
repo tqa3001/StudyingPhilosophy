@@ -8,7 +8,6 @@ export default function Settings() {
   const editModeChange = () => {
     setEditMode(editMode ^ 1); 
   }
-  console.log(BACKEND_PORT);
   return (
     <div>
       <ProfileDetails mode={editMode} />

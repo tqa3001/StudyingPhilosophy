@@ -3,14 +3,16 @@ import { apiSlice } from "../../app/api/apiSlice";
 
 /**
  * createEntityAdapter() generates a set of prebuilt reducers and selectors 
- * for performing CRUD operations on a normalized state structure
+ * for performing CRUD operations on a normalized state structure (ids, entities)
+ * ids: []
+ * entities: {} (map id to entity object)
  */
 const usersAdapter = createEntityAdapter(); 
-const initialState = usersAdapter.getInitialState(); 
+const initialState = usersAdapter.getInitialState();
 
-const userApiSlice = apiSlice.injectEndpoints({
-  endpoints: builder => ({
-    getUsers: builder.query({
+const usersApiSlice = apiSlice.injectEndpoints({
+  endpoints: build => ({
+    getUsers: build.query({
       query: () => '/users',  // there's also keepunuseddata something something, not sure why we need that. 
       validateStatus: 
         (response, result) => (response.status === 200 && !result.isError), 
@@ -29,7 +31,7 @@ const userApiSlice = apiSlice.injectEndpoints({
         }, 
         /**
          * RTK Optimization: RTK Query uses a "cache tag" system to automate re-fetching for query endpoints 
-         * that have data  affected by mutation endpoints. If mutation -> tag is invalidaed -> cached data is 
+         * that have data affected by mutation endpoints. If mutation -> tag is invalidated -> cached data is 
          * invalidated -> will be fetched if subscription is active. 
          */
         providedTags:  // Use the tags defined in apiSlice.js
@@ -37,7 +39,7 @@ const userApiSlice = apiSlice.injectEndpoints({
             if (users?.ids) {  // Wait how do you know about the existance of "ids"? 
               return [
                 { type: 'User', id: 'LIST' }, 
-                users.map((user) => ({ type: 'User', id: user.id }))
+                ...users.map((user) => ({ type: 'User', id: user.id }))
               ] 
             } else {
               return [{ type: 'User', id: 'LIST' }] 
@@ -48,9 +50,24 @@ const userApiSlice = apiSlice.injectEndpoints({
   })
 })
 
-/* RTK Query automatically generates a hook from the query name */
+/* RTK Query automatically generates a hook for each endpoint of an api slice */
 export const {
   useGetUsersQuery
-} = userApiSlice; 
+} = usersApiSlice; 
 
-/* Selector -> only select some info from the response */
+
+/**
+ * Selector function: takes redux state, returns data from that state.
+ * Hard-coding a selector function might be costly, so Redux offers memoization using createSelector. 
+ */
+export const selectUsersResult = usersApiSlice.endpoints.getUsers.select();  // .select is a factory; .select() is a function (selector)
+const selectUsersData = createSelector(
+  selectUsersResult,  // apply this selector
+  users => users.data
+); 
+
+/* Similar to above, getSelector() generates state-binded selectors automatically for React (fascinating) */
+export const {
+  selectAll: selectAllUsers, selectById: selectUserById, selectIds: selectUserIds  /* LHS is the hook, RHS is renaming */
+} = usersAdapter.getSelectors((state) => selectUsersData(state) ?? initialState);  /* How to not forget handling these cases? */
+

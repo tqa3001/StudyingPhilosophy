@@ -7,7 +7,8 @@ import Login from './features/auth/Login'
 import DashboardLayout from './components/DashboardLayout'
 import Welcome from './features/auth/Welcome'
 import ListSources from './features/sources/ListSources'
-import Settings from './features/users/Settings'
+import ListUsers from './features/users/ListUsers'
+import User from './features/users/User'
 
 export default function App() {  /* Define layout for client-side routing */
   return (
@@ -23,42 +24,11 @@ export default function App() {  /* Define layout for client-side routing */
           </Route>
           {/* Users */}
           <Route path="users">
-            <Route index element={<Settings />} />
+            <Route index element={<ListUsers />} />
+            <Route path=":id" element={<User />} />
           </Route>
         </Route> 
       </Route>
     </Routes>
   )
 }
-
-/*
- function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
-}
-
- */

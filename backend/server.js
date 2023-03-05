@@ -32,7 +32,7 @@ app.use(cors(corsOptions));
 app.get('/', require('./routes/root'));
 
 // user
-app.use('/user', require('./routes/userRoutes'))
+app.use('/users', require('./routes/userRoutes'))
 
 // 404 
 // question: what is the purpose of checking "accepts"? what would go wrong if we don't do so? 

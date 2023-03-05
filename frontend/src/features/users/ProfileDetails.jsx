@@ -1,20 +1,26 @@
-import { useState } from "react";
-
-export default function ProfileDetails({ mode }) {
-  let display = null; 
-  const [userState, updateUserState] = useState(0); 
-  if (mode) {
+export default function ProfileDetails({ editMode }) {
+  if (editMode) {
     display = (
-      <div>
-        cock
-      </div>
+      <form action="#" method="POST">
+        <section>
+          <label>Username: </label> 
+          <input type="text" />
+        </section>
+        
+        <section>
+          <label>Name: </label> 
+          <input type="text" />
+        </section>
+  
+        <section>
+          <label>New Password (make a separate component): </label> 
+          <input type="password" />
+        </section>
+  
+      </form>
     )
   } else {
-    display = (
-      <div>
-        balls
-      </div>
-    )
+    display = <div>Cringe ah ah display no edit!</div>
   }
   return display; 
 }

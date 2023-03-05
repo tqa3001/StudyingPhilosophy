@@ -13,6 +13,9 @@ Dashboard (index: Welcome)
     Update profile details
     Other Settings 
 
+# Full list of specs
+Check the notion page. 
+
 # API
 ## Users: id, username, name,
 - get, set (all except for id)

@@ -13,7 +13,7 @@ const asyncHandler = require('express-async-handler');  // reduce try-catching.
 const bcrypt = require('bcrypt');  // for hashing password 
 
 /**
- * @desc if isAdmin, Get all users.
+ * @desc get all users.
  * @route GET /user
  * @access Private
  */

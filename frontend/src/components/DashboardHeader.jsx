@@ -18,7 +18,7 @@ export default function DashboardHeader() {
   }
   return (
     <header className="bg-green-700 text-white">
-      <h1 className="text-2xl font-bold">Rewrite</h1>
+      <h1 className="text-2xl font-bold">Dashboard Header | Rewrite</h1>
       {homeButton}
       <nav></nav>
     </header>

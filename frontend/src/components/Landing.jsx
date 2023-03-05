@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom' 
+import { Link } from 'react-router-dom'  /* reloadDocument -> skip client-side routing -> normal a href */
 
 export default function Public() {
   return (
@@ -12,9 +12,9 @@ export default function Public() {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
       </main>
-      <footer>
-        <Link to="/login">Login</Link> <br /> {/* reloadDocument -> skip client-side routing -> normal a href */}
-        <Link to="/dashboard">Open Dashboard</Link> {/* component for /dashboard is assigned in App.jsx */}
+      <footer> 
+        <Link to="/login">Login</Link> <br /> 
+        <Link to="/dashboard">Open Dashboard</Link> 
       </footer>
     </section>
   )

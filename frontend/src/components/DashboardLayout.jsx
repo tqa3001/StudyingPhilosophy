@@ -7,7 +7,6 @@ export default function DashboardLayout() {
     <>
       <DashboardHeader /> 
       <main>
-        <h1 className="text-3xl">Dashboard Layout</h1>
         <Outlet />
       </main>
       <DashboardFooter />
