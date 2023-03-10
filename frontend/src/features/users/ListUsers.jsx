@@ -30,14 +30,19 @@ export default function ListUsers({ editMode }) {
             </tr>  
           </thead>
           <tbody>
-            { ids.map((userId) => (
+            { ids.map((userID) => (
               <tr>
-                <td>{userId}</td>
+                <td>{userID}</td>
                 <td className="text-blue-700">
-                  <Link to={`${userId}`}>{entities[userId].username}</Link>
+                  <Link 
+                    to={`${userID}`}
+                    state={{
+                      userID: userID
+                    }}
+                  >{entities[userID].username}</Link>
                 </td>
-                <td>{entities[userId].name}</td>
-                <td>{entities[userId].sources.map(source => <div>{source}</div>)}</td>
+                <td>{entities[userID].name}</td>
+                <td>{entities[userID].sources.map(source => <div>{source}</div>)}</td>
               </tr>
             )) }
           </tbody>
