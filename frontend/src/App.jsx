@@ -21,6 +21,7 @@ export default function App() {  /* Define layout for client-side routing */
           {/* Sources */ }
           <Route path="sources">
             <Route index element={<ListSources />} />
+            <Route path=":id" element={<Source/>} />
           </Route>
           {/* Users */}
           <Route path="users">

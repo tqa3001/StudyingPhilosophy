@@ -2,13 +2,17 @@
 const mongoose = require('mongoose'); 
 
 // Note-to-self: before defining schemas, go back to the specs and think how to best structure the data. 
-const bubbleSchema = new mongoose.Schema( {  
-  author: {
+const sourceSchema = new mongoose.Schema( {  
+  parentUserID: {
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User', 
     required: true, 
   },  
-  url: {
+  origin: {
+    type: String, 
+    required: true 
+  }, 
+  title: {
     type: String,
     required: true 
   }, 
@@ -16,11 +20,11 @@ const bubbleSchema = new mongoose.Schema( {
     type: String, 
     default: "Add description"
   }, 
-  comments: {
+  noteIDs: {
     // type: [commentSchema],  // array of subdocuments, not prefered? 
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Note' }],
     required: false 
   }
 }); 
 
-module.exports = mongoose.model('Source', bubbleSchema); 
+module.exports = mongoose.model('Source', sourceSchema); 
