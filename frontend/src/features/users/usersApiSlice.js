@@ -1,4 +1,5 @@
 import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
+import { buildErrorMessage } from "vite";
 import { apiSlice } from "../../app/api/apiSlice";
 
 /**
@@ -48,7 +49,33 @@ const usersApiSlice = apiSlice.injectEndpoints({
             }
           }
     }), 
-
+    addUser: build.query({
+      query: (userData) => ({
+        url: '/users/',
+        method: 'POST', 
+        body: userData
+      }), 
+      validateStatus: 
+        (response, result) => (response.status === 200 && !result.isError), 
+    }), 
+    updateUser: build.query({
+      query: (userData) => ({
+        url: '/users', 
+        method: 'PATCH', 
+        body: userData
+      }), 
+      validateStatus: 
+        (response, result) => (response.status === 200 && !result.isError), 
+    }), 
+    deleteUser: build.query({
+      query: (userID) => ({
+        url: "/users", 
+        method: "DELETE", 
+        body: { userID: userID }
+      }), 
+      validateStatus: 
+        (response, result) => (response.status === 200 && !result.isError), 
+    })
   })
 })
 

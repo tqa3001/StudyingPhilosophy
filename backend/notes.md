@@ -7,3 +7,6 @@
 
 [Storing ObjectIds in a schema](https://stackoverflow.com/questions/72596362/mongoose-best-way-to-store-a-set-of-ids-in-a-document-map-array)
 - "Make the MongoDB server do most of the work. With the right aggregation pipeline, all the filtering/etc. can be done by the server and simplify your post-processing. Filtering at the server will also reduce the amount of data returned and save a lot of network communication time." 
+
+**Read later**
+[MongoDB edge cases](https://kb.objectrocket.com/mongo-db/mongodb-null-or-empty-a-look-at-some-edge-cases-for-mongodb-and-how-to-query-for-them-470)

@@ -1,7 +1,9 @@
 import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 import { apiSlice } from "../../app/api/apiSlice"
 
-const sourcesAdapter = createEntityAdapter(); 
+const sourcesAdapter = createEntityAdapter({
+  sortComparer: (a, b) => (a.title == b.title ? 0 : (a.title < b.title ? -1 : 1)) 
+}); 
 const initialState = sourcesAdapter.getInitialState();  
 
 const sourcesApiSlice = apiSlice.injectEndpoints({
@@ -32,13 +34,31 @@ const sourcesApiSlice = apiSlice.injectEndpoints({
     }), 
     addSource: build.query({
       query: (sourceData) => ({
-        url: '/sources', 
-        method: 'POST', 
+        url: "/sources", 
+        method: "POST", 
         body: sourceData
       }), 
       validateStatus: 
         (response, result) => (response.status === 200 && !result.isError), 
     }), 
+    patchSource: build.query({
+      query: (sourceData) => ({
+        url: "/sources", 
+        method: "PATCH", 
+        body: sourceData
+      }), 
+      validateStatus: 
+        (response, result) => (response.status === 200 && !result.isError), 
+    }), 
+    deleteSource: build.query({
+      query: (sourceID) => ({
+        url: "/sources", 
+        method: "DELETE", 
+        body: { sourceID: sourceID } 
+      }), 
+      validateStatus: 
+        (response, result) => (response.status === 200 && !result.isError), 
+    })
   })
 })
 

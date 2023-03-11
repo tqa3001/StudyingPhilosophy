@@ -3,7 +3,9 @@ const sourceControllers = require("../controllers/sourceControllers")
 
 router.route('/')
   .get(sourceControllers.getAllSources)
-  .post(sourceControllers.createSourceAndUpdate); 
+  .post(sourceControllers.createSourceAndUpdate)
+  .patch(sourceControllers.updateSource)
+  .delete(sourceControllers.deleteSource)
 
 router.route('/:userID')
   .get(sourceControllers.getSourcesFromUserID);

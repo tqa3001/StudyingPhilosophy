@@ -8,10 +8,8 @@ const sourceSchema = new mongoose.Schema( {
     ref: 'User', 
     required: true, 
   },  
-  origin: {
-    type: String, 
-    required: true 
-  }, 
+  origin: String, 
+  url: String,
   title: {
     type: String,
     required: true 
@@ -21,10 +19,11 @@ const sourceSchema = new mongoose.Schema( {
     default: "Add description"
   }, 
   noteIDs: {
-    // type: [commentSchema],  // array of subdocuments, not prefered? 
+    // type: [commentSchema],  // array of subdocuments, not prefered? (too slow)
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Note' }],
+    default: [], 
     required: false 
   }
-}); 
+}, { timestamps: true }); 
 
 module.exports = mongoose.model('Source', sourceSchema); 

@@ -73,9 +73,61 @@ const createSourceAndUpdate = asyncHandler(async (req, res) => {
   if (!updatedUser) {
     return res.status(500).json({ "err": "New source is created but is not added to the user "}); 
   }
-  res.status(201).json({ "msg": "Successfully added new source to user " }); 
+  res.status(201).json({ "msg": `Successfully added new source to user <${updatedUser.username}>` }); 
 }); 
 
-module.exports = {
-  getAllSources, getSourcesFromUserID, createSourceAndUpdate
+/**
+ * @desc Update source with a given ID
+ * @route PATCH /sources 
+ * @access Private
+ */
+const updateSource = asyncHandler(async (req, res) => {
+  const { sourceID, newParentUserID, newTitle, newOrigin, newDescription, newUrl } = req.body; 
+  if (!sourceID) {
+    return res.status(400).json({"err": "ID for source is not given"});
+  } 
+  const source = await Source.findById(sourceID); 
+  if (!source) {
+    return res.status(500).json({"err": "Cannot find a source with that ID"}); 
+  }
+  if (newParentUserID)
+    source.parentUserID = newParentUserID; 
+  if (newTitle) 
+    source.title = newTitle; 
+  if (newOrigin)
+    source.origin = newOrigin; 
+  if (newUrl)
+    source.url = newUrl;  
+  if (newDescription)
+    source.description = newDescription; 
+  const updateSource = await source.save(); 
+  if (!updateSource) {
+    return res.status(500).json({"err": "Error updating source"}); 
+  } 
+  res.status(200).json({"success": "Successfully updated source"}); 
+}); 
+
+/**
+ * @desc Delete a source given ID 
+ * @route DELETE /sources
+ * @access Private
+ */ 
+const deleteSource = asyncHandler(async (req, res) => {
+  const { sourceID } = req.body;
+  if (!sourceID) {
+    return res.status(400).json({"err": "Source ID is not given"}); 
+  }
+  const source = await Source.findById(sourceID); 
+  if (!source) {
+    return res.status(400).json({"err": "No source is found with the given ID"}); 
+  } 
+  const sourceInfo = await source.delete(); 
+  if (!sourceInfo) {
+    return res.status(500).json({"err": "Couldn't delete the source"}); 
+  }
+  res.status(200).json({"success": "Deleted the source"});  
+}); 
+
+module.exports = { 
+  getAllSources, getSourcesFromUserID, createSourceAndUpdate, updateSource, deleteSource
 }

@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Source' }], 
     default: [], 
   }
-}); 
+}, { timestamps: true }); 
 
 // Modularized, time to export. 
 module.exports = mongoose.model('User', userSchema); 
