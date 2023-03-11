@@ -9,6 +9,7 @@ import Welcome from './features/auth/Welcome'
 import ListSources from './features/sources/ListSources'
 import ListUsers from './features/users/ListUsers'
 import User from './features/users/User'
+import Source from './features/sources/Source'
 
 export default function App() {  /* Define layout for client-side routing */
   return (

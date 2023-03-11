@@ -6,7 +6,7 @@ export default function DashboardLayout() {
   return (
     <>
       <DashboardHeader /> 
-      <main>
+      <main className="p-2">
         <Outlet />
       </main>
       <DashboardFooter />

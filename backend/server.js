@@ -28,14 +28,18 @@ app.use(express.json());
 // app.use(cors()); // -> public API, any origin can request resources
 app.use(cors(corsOptions)); 
 
-// landing page
+// API landing page 
 app.get('/', require('./routes/root'));
 
-// user
-app.use('/users', require('./routes/userRoutes'));
+// users
+app.use('/users', require('./routes/usersRoutes'));
+
+// sources
+app.use('/sources', require('./routes/sourcesRoutes'))
 
 // 404 
 // question: what is the purpose of checking "accepts"? what would go wrong if we don't do so? 
+// technically we can render the full UI serverside, but that's too slow we don't want that. 
 app.all('*', (req, res) => {
   res.status(404); 
   if (req.accepts('html')) {

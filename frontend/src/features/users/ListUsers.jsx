@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetUsersQuery } from "./usersApiSlice";
 
-export default function ListUsers({ editMode }) {
+export default function ListUsers() {
   /**
    * Automatically triggers fetches of data from an endpoint, 'subscribes' the component to the cached data, 
    * and reads the request status and cached data from the Redux store.
@@ -16,7 +16,7 @@ export default function ListUsers({ editMode }) {
 
   let content = null; 
   if (isLoading) 
-    content = <div>Loading users...<FontAwesomeIcon icon={faRotate}/></div>; 
+    content = <div>Loading users... <FontAwesomeIcon icon={faRotate}/></div>; 
   else if (isError) 
     content = <div>Error loading users: {error.message}</div>; 
   else {
@@ -36,9 +36,7 @@ export default function ListUsers({ editMode }) {
                 <td className="text-blue-700">
                   <Link 
                     to={`${userID}`}
-                    state={{
-                      userID: userID
-                    }}
+                    state={{userID: userID}}
                   >{entities[userID].username}</Link>
                 </td>
                 <td>{entities[userID].name}</td>

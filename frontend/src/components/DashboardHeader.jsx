@@ -17,9 +17,11 @@ export default function DashboardHeader() {
     </button>  
   }
   return (
-    <header className="bg-green-700 text-white">
-      <h1 className="text-2xl font-bold">Dashboard Header | Rewrite</h1>
-      {homeButton}
+    <header className="bg-green-700 text-white p-2">
+      <div className="flex justify-between">
+        <div className="text-2xl font-bold">Dashboard Header | Rewrite</div>
+        <div>{homeButton}</div>
+      </div>
       <nav></nav>
     </header>
   )

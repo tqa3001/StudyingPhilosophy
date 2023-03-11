@@ -8,8 +8,5 @@ router.route('/')
   .patch(userControllers.updateUser)
   .delete(userControllers.deleteUser); 
 
-router.route('/:userID/')
-  .post(sourceControllers.createSourceAndUpdate); 
-
 module.exports = router;
   

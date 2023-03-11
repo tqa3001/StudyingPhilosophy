@@ -36,7 +36,9 @@ const usersApiSlice = apiSlice.injectEndpoints({
          */
         providedTags:  // Use the tags defined in apiSlice.js
           (users, err, queryArgs) => {
-            if (users?.ids) {  // Wait how do you know about the existance of "ids"? 
+            if (users?.ids) {  
+              // Wait how do you know about the existance of "ids"?
+              // Because in transformResponse we normalized the response. 
               return [
                 { type: 'User', id: 'LIST' }, 
                 ...users.map((user) => ({ type: 'User', id: user.id }))

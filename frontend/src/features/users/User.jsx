@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useGetUsersQuery, selectUserById } from "./usersApiSlice";
+import { Link } from "react-router-dom";
 
 export default function User() {
   const location = useLocation();
@@ -29,14 +30,17 @@ export default function User() {
     display = (
       <div>
         <h1 className="text-3xl font-bold">User: {user.username}</h1>
-        <h2>All sources (user.sources gives ObjectIds): </h2>
+        <h2 className="font-bold">All sources (user.sources gives ObjectIds): </h2>
         <div>
           {user.sources.map((sourceID) => 
             <Link 
-              to={`/dashboard/sources/${sourceID}`} 
+              to={`../../sources/${sourceID}`} 
               state={{ sourceID: sourceID }}
-            >{sourceID}</Link>)}
+              relative="path"
+            ><div>{sourceID}</div></Link>)}
         </div>
+        <br />
+        <h2 className="font-bold">Add new source with redux form</h2> 
       </div>
     )
   }

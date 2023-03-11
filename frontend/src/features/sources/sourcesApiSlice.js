@@ -7,28 +7,43 @@ const initialState = sourcesAdapter.getInitialState();
 const sourcesApiSlice = apiSlice.injectEndpoints({
   endpoints: build => ({
     getSources: build.query({
-      query: () => '/dashboard/sources', 
+      query: (userID) => (userID ? `/sources/${userID}` : '/sources'), 
       validateStatus: 
         (response, result) => (response.status === 200 && !result.isError), 
-      transformResponse: 
-        sources => sources.map(source => ({...source, id: source._id})), 
+      transformResponse:  // add id (since mongo uses _id) and normalize
+        sources => {
+          const sourcesWithIDs = sources.map(source => {
+            return {...source, id: source._id};
+          }); 
+          const normalizedSources = sourcesAdapter.setAll(initialState, sourcesWithIDs); 
+          return normalizedSources; 
+        }, 
       providedTags: 
         (sources, err, queryArgs) => {
           if (sources?.ids) {
             return [ 
               { type: 'Source', id: 'LIST' }, 
-              ...sources.ids.map(sourceId => ({ type: 'Source', id: sourceId }))
+              ...sources.ids.map(sourceID => ({ type: 'Source', id: sourceID }))
             ]; 
           } else {
             return [{ type: 'Source', id: 'LIST' }];
           }
         },      
-    })
-  }), 
+    }), 
+    addSource: build.query({
+      query: (sourceData) => ({
+        url: '/sources', 
+        method: 'POST', 
+        body: sourceData
+      }), 
+      validateStatus: 
+        (response, result) => (response.status === 200 && !result.isError), 
+    }), 
+  })
 })
 
 export const {
-  useGetSourcesQuery  // there's also useLazyGetSourcesQuery which i'll dive into later. 
+  useGetSourcesQuery, useAddSourceQuery  // there's also useLazyGetSourcesQuery which i'll dive into later. 
 } = sourcesApiSlice; 
 
 export const selectSourcesResult = sourcesApiSlice.endpoints.getSources.select();  // Why export this one but not the memoized?
@@ -38,6 +53,6 @@ const selectSourcesData = createSelector(
 )
 
 export const {  // Hooks
-  selectAll: selectAllSources, selectById: selectUserById, selectIds: selectSourceIds  
+  selectAll: selectAllSources, selectById: selectSourceById, selectIds: selectSourceIds  
 } = sourcesAdapter.getSelectors((state) => selectSourcesData(state) ?? initialState);
 
