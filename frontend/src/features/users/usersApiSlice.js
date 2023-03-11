@@ -1,5 +1,4 @@
 import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
-import { buildErrorMessage } from "vite";
 import { apiSlice } from "../../app/api/apiSlice";
 
 /**
