@@ -18,7 +18,7 @@ export default function Source() {
       <div>
         <h1 className="text-3xl font-bold">{source.title}</h1> 
         <h2 className="font-italic text-blue-600">Origin: {source.origin}</h2>
-        <div>URL: <a href="#">None</a></div>
+        <div>URL: <a href="#">{source.url ?? "None"}</a></div>
         <br/>
         <p className="">{source.description}</p>
       </div>
