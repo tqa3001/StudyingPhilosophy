@@ -4,7 +4,7 @@ Features: CRUD operations on users, sources, notes. Notes are given properties t
 
 ## Usage
 - `npm run dev` for both backend and frontend. 
-- UI is at [](http://localhost:3000/)
+- UI is at [http://localhost:3000/](http://localhost:3000/)
 
 ## Todo
 - Implement algorithms for reviewing notes
