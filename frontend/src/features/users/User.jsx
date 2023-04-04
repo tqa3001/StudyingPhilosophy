@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useGetUsersQuery, selectUserById } from "./usersApiSlice";
+import { useGetSourcesQuery } from "../sources/sourcesApiSlice";
 import { Link } from "react-router-dom";
 
 export default function User() {
@@ -13,6 +14,8 @@ export default function User() {
   } = useGetUsersQuery(); 
   let fetchStatus = isLoading ? "Loading" : (isError ? "Failure" : "Success"); 
   const user = useSelector((state) => selectUserById(state, userID));  // idk why this isn't working
+  const sourcesQuery = useGetSourcesQuery(userID); 
+  const filtered_sources = sourcesQuery.data; 
   /** 
    * Why do we need a hook to use selectors? what are hooks for smh why not just functions is hook just a fancy
    * way to write a function smh
@@ -24,20 +27,25 @@ export default function User() {
    * because of memoization (if not memoized then uhh useMemo? idk)
   */
   let display = null; 
-  if (!userID || !user) {
+  if (!userID || !user || !filtered_sources) {
     display = (isError ? <div>Invalid User</div> : <div>Loading user...</div>)
   } else {
     display = (
       <div>
         <h1 className="text-3xl font-bold">User: {user.username}</h1>
-        <h2 className="font-bold">All sources (user.sources gives ObjectIds): </h2>
+        <h2 className="font-bold">All sources </h2>
         <div>
-          {user.sources.map((sourceID) => 
-            <Link 
-              to={`../../sources/${sourceID}`} 
-              state={{ sourceID: sourceID }}
-              relative="path"
-            ><div>{sourceID}</div></Link>)}
+          {console.log("THE ONE PIECE IS REAL!!", filtered_sources)}
+          {
+          filtered_sources.ids.map((sourceID) => {
+            return (
+              <Link 
+                to={`../../sources/${sourceID}`} 
+                state={{ sourceID: sourceID }}
+                relative="path"
+              ><div>{sourceID}</div></Link>
+            )
+          })}
         </div>
         <br />
         <h2 className="font-bold">Add new source with redux form</h2> 

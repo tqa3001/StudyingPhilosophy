@@ -35,7 +35,10 @@ app.get('/', require('./routes/root'));
 app.use('/users', require('./routes/usersRoutes'));
 
 // sources
-app.use('/sources', require('./routes/sourcesRoutes'))
+app.use('/sources', require('./routes/sourcesRoutes')); 
+
+// notes
+app.use('/notes', require('./routes/notesRoutes')); 
 
 // 404 
 // question: what is the purpose of checking "accepts"? what would go wrong if we don't do so? 

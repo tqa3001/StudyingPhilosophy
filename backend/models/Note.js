@@ -17,6 +17,7 @@ const noteSchema = new mongoose.Schema({
     required: true 
   }, 
   noteType: Number, 
+  title: String,
   text: {
     type: String, 
     required: true 
