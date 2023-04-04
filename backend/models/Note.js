@@ -3,11 +3,11 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 /**
  * noteType: 
- * 0 - Citation
- * 1 - Elaboration
- * 2 - Question
- * 3 - Answer
- * 4 - Observation
+ * citation
+ * elaboration
+ * question
+ * answer
+ * observation
  */
 
 const noteSchema = new mongoose.Schema({
@@ -24,7 +24,7 @@ const noteSchema = new mongoose.Schema({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Note' }],
     default: []
   },
-  noteType: Number, 
+  noteType: String,
   title: String,
   text: {
     type: String, 

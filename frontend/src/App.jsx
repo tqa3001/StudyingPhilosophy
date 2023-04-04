@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
@@ -6,10 +5,12 @@ import Landing from './components/Landing'
 import Login from './features/auth/Login'
 import DashboardLayout from './components/DashboardLayout'
 import Welcome from './features/auth/Welcome'
-import ListSources from './features/sources/ListSources'
 import ListUsers from './features/users/ListUsers'
+import ListSources from './features/sources/ListSources'
+import ListNotes from './features/notes/ListNotes'
 import User from './features/users/User'
 import Source from './features/sources/Source'
+import Note from './features/notes/Note'
 
 export default function App() {  /* Define layout for client-side routing */
   return (
@@ -28,6 +29,11 @@ export default function App() {  /* Define layout for client-side routing */
           <Route path="users">
             <Route index element={<ListUsers />} />
             <Route path=":id" element={<User/>} />
+          </Route>
+          {/* Notes */}
+          <Route path="notes">
+            <Route index element={<ListNotes />} />
+            <Route path=":id" element={<Note/>} />
           </Route>
         </Route> 
       </Route>

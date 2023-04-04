@@ -38,9 +38,8 @@ const createNote = asyncHandler(async (req, res) => {
     if (!parentNote) 
       return res.status(400).json({"err": "No parent note exists with that ID"}); 
     parentNote.childNotes.push(newNote._id); 
-  } else {
-    source.noteIDs.push(newNote._id); 
-  }
+  } 
+  source.noteIDs.push(newNote._id); 
   const updatedSource = await source.save(); 
   if (!updatedSource) {
     return res.status(500).json({"err": "Unable to create new note"}); 
