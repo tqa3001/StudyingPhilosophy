@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { selectSourceById, useGetSourcesQuery } from "./sourcesApiSlice";
+import NotePreview from "../notes/NotePreview";
 
 export default function Source() {
   const location = useLocation(); 
   const { sourceID } = location.state; 
   const { isLoading, isError } = useGetSourcesQuery(); 
   const source = useSelector((state) => selectSourceById(state, sourceID)); 
-  console.log("this is too goofy...", sourceID, isLoading, isError, source); 
   let display = null; 
   if (isLoading) 
     display = <div>Loading...</div>
@@ -22,17 +22,8 @@ export default function Source() {
         <br/>
         <p className="">{source.description}</p>
         <div className="text-2xl font-bold">Recent Notes</div>
-        {source.noteIDs.map(noteID => (
-          <Link 
-            to={`../../notes/${noteID}`}
-            state={{ noteID : noteID }}
-            relative="path"
-          >
-            <div className="p-2 m-2 border-2 border-black rounded-lg">
-              {noteID} | Make note title appear here
-            </div>
-          </Link>
-        ))}
+        {console.log(source.noteIDs)}
+        {source.noteIDs.map(noteID => <NotePreview noteID={noteID}/>)}
       </div>
     )
   }

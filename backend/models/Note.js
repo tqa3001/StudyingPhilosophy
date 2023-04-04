@@ -5,7 +5,7 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
  * noteType: 
  * citation
  * elaboration
- * question
+ * question / resolved question
  * answer
  * observation
  */

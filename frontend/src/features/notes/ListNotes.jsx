@@ -1,12 +1,5 @@
 import { useGetNotesQuery } from "./notesApiSlice"
-
-const TypeToStyleAttributes = {
-  "citation": "bg-gray-300 text-black rounded-lg p-3 m-3",
-  "elaboration": "bg-blue-300 text-black rounded-lg p-3 m-3",
-  "question": "bg-red-300 text-black rounded-lg p-3 m-3",
-  "answer": "bg-green-400 text-white",
-  "observation": "bg-yellow-500 text-black"
-}; 
+import NotePreview from "./NotePreview";
 
 export default function ListNotes() {
   const notesQuery = useGetNotesQuery();
@@ -18,13 +11,10 @@ export default function ListNotes() {
   } else if (isError) {
     display = <div>Unable to display notes</div>
   } else {
+    console.log("bruh! ", notes.entities);
     display = (
       <div>
-        {notes.map(note => (
-          <div className={TypeToStyleAttributes[note.noteType]}>
-            {note.id} | {note.title}
-          </div>
-        ))}
+        {notes.ids.map(noteID => <div key={noteID}><NotePreview noteID={noteID} /></div>)}
       </div>
     )
   }

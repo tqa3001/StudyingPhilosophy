@@ -6,7 +6,7 @@ export default function DashboardHeader() {
   const { pathname } = useLocation(); 
   const navigate = useNavigate(); 
   const goHome = () => navigate("/dashboard"); 
-  const goBack = () => navigate("/..");  // not working
+  const goBack = () => navigate(-1);
   let homeButton = null; 
   let backButton = null; 
   if (pathname !== "/dashboard") {  // Logged in -> already at home

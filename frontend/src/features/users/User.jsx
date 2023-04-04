@@ -35,7 +35,6 @@ export default function User() {
         <h1 className="text-3xl font-bold">User: {user.username}</h1>
         <h2 className="font-bold">All sources </h2>
         <div>
-          {console.log("THE ONE PIECE IS REAL!!", filtered_sources)}
           {
           filtered_sources.ids.map((sourceID) => {
             return (

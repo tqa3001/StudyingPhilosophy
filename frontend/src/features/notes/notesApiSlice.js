@@ -18,8 +18,8 @@ const notesApiSlice = apiSlice.injectEndpoints({
           const notesWithIDs = notes.map(note => {
             return {...note, id: note._id};
           }); 
-          const normalizedSources = notesAdapter.setAll(initialState, notesWithIDs); 
-          return normalizedSources; 
+          const normalizedNotes = notesAdapter.setAll(initialState, notesWithIDs); 
+          return normalizedNotes; 
         }, 
       providedTags: 
         (notes, err, queryArgs) => {
