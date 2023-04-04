@@ -21,7 +21,7 @@ const getAllNotes = asyncHandler(async (req, res) => {
  * @access private
  */
 const createNote = asyncHandler(async (req, res) => {
-  const { sourceID, title, text, noteType } = req.body; 
+  const { sourceID, parentNoteID, noteType, title, text } = req.body; 
   if (!sourceID || !title || !noteType) {
     return res.status(400).json({"err": "Invalid input"}); 
   }
@@ -29,11 +29,18 @@ const createNote = asyncHandler(async (req, res) => {
   if (!source) {
     return res.status(500).json({"err": "No source with given ID"}); 
   } 
-  const newNote = await Note.create({ parentSourceID: sourceID, noteType, title, text }); 
+  const newNote = await Note.create({ parentSourceID: sourceID, parentNoteID, noteType, title, text }); 
   if (!newNote) {
     return res.status(500).json({"err": "Unable to create new note"}); 
   }
-  source.noteIDs.push(newNote._id); 
+  if (parentNoteID) {
+    const parentNote = await Note.findById(parentNoteID); 
+    if (!parentNote) 
+      return res.status(400).json({"err": "No parent note exists with that ID"}); 
+    parentNote.childNotes.push(newNote._id); 
+  } else {
+    source.noteIDs.push(newNote._id); 
+  }
   const updatedSource = await source.save(); 
   if (!updatedSource) {
     return res.status(500).json({"err": "Unable to create new note"}); 

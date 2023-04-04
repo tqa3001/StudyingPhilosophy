@@ -1,7 +1,7 @@
 const router = require("express").Router(); 
 const noteControllers = require("../controllers/noteControllers"); 
 
-router.route('/notes')
+router.route('/')
   .get(noteControllers.getAllNotes)
   .post(noteControllers.createNote)
   .patch(noteControllers.updateNote)

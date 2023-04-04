@@ -16,6 +16,14 @@ const noteSchema = new mongoose.Schema({
     ref: 'Source', 
     required: true 
   }, 
+  parentNoteID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Note'
+  },
+  childNotes: {
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Note' }],
+    default: []
+  },
   noteType: Number, 
   title: String,
   text: {

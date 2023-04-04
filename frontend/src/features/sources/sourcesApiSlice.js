@@ -14,6 +14,9 @@ const sourcesApiSlice = apiSlice.injectEndpoints({
         (response, result) => (response.status === 200 && !result.isError), 
       transformResponse:  // add id (since mongo uses _id) and normalize
         sources => {
+          console.log("how many balls are required?????", sources); 
+          sources = sources.filter(source => (source !== null));
+          console.log("BING CHILLING?????", sources); 
           const sourcesWithIDs = sources.map(source => {
             return {...source, id: source._id};
           }); 
