@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { selectNoteById } from "./notesApiSlice";
+import { selectNoteById, useGetNotesQuery } from "./notesApiSlice";
 
 const TypeToStyleAttributes = {
   "citation": "bg-gray-300 text-black rounded-lg p-3 m-3",
@@ -12,8 +12,12 @@ const TypeToStyleAttributes = {
 }; 
 
 export default function NotePreview({ noteID }) {
+  const { isLoading, isError } = useGetNotesQuery(); 
   const note = useSelector((state) => selectNoteById(state, noteID));
-  return (
+  let display = null;
+  if (isLoading) display = <div>Loading...</div>
+  else if (isError) display = <div>Item error</div>
+  else display = (
     <Link 
       to={`/dashboard/notes/${note.id}`}
       state={{ noteID: note.id }}
@@ -24,4 +28,5 @@ export default function NotePreview({ noteID }) {
       </div>
     </Link>
   )
+  return display;
 }
