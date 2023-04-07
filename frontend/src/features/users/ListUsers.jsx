@@ -2,7 +2,7 @@ import { faRotate } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useGetUsersQuery } from "./usersApiSlice";
-import "./tableStyle.css" 
+import "../../styles/tableStyle.css" 
 
 export default function ListUsers() {
   /**

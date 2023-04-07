@@ -1,8 +1,10 @@
 import { selectSourceById, useGetSourcesQuery } from "./sourcesApiSlice";
 import { faRotate } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link } from "react-router-dom"; 
+// hmm.. some how without this line nodejs will still take the import in ListUsers.jsx and apply it to this file
+import "../../styles/tableStyle.css" 
+
 
 export default function ListSources() {
   const { data, isLoading, isError } = useGetSourcesQuery();  
@@ -28,17 +30,18 @@ export default function ListSources() {
             console.log("BRUH", sourceID); 
             const source = sources[sourceID]; 
             return (
-              <Link 
-                to={sourceID}
-                state={{sourceID: sourceID}}
-              >
-                <tr>
-                  <td>{source.title}</td>
-                  <td>{source.origin}</td>
-                  <td>{source.description}</td>
-                  <td>{source.parentUserID}</td>
-                </tr>
-              </Link>
+              <tr>
+                <td className="text-blue-700">
+                  <Link 
+                    to={sourceID}
+                    state={{sourceID: sourceID}}
+                  >{source.title}
+                  </Link>
+                </td>
+                <td>{source.origin}</td>
+                <td>{source.description}</td>
+                <td>{source.parentUserID}</td>
+              </tr>
             )
           }
           )}
