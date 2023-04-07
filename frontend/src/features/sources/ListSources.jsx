@@ -50,8 +50,8 @@ export default function ListSources() {
     ); 
   } 
   return (
-    <div>
-      <h1 className="font-bold">All sources</h1>
+    <div className="m-5">
+      <h1 className="text-3xl font-bold my-3">All sources</h1>
       {table}
     </div>
   )

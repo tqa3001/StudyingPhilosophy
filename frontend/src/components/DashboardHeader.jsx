@@ -27,8 +27,10 @@ export default function DashboardHeader() {
   }
   return (
     <header className="bg-green-700 text-white p-2">
-      <div className="flex justify-between">
-        <div className="text-2xl font-bold">Dashboard Header | StudyPhilosophy</div>
+      <div className="flex justify-between h-full">
+        <div className="text-2xl font-bold flex h-fit my-auto mx-5">
+          StudyPhilosophy v.0.0.1
+        </div>
         <div className="flex">
           <div>{backButton}</div>
           <div>{homeButton}</div>

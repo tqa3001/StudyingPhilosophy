@@ -15,7 +15,7 @@ export default function Source() {
   const [newNoteFormVisible, setFormVisibility] = useState(false)
   let newNoteForm = null; 
   if (newNoteFormVisible) {
-    newNoteForm = <CreateNewNote />
+    newNoteForm = <CreateNewNote source={source} />
   } else newNoteForm = null; 
 
   const toggleFormVisibility = () => setFormVisibility(newNoteFormVisible ^ 1);
