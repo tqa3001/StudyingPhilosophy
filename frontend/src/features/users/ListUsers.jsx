@@ -50,12 +50,9 @@ export default function ListUsers() {
   }
 
   return (
-    <div> 
-      <h1 className="text-3xl font-bold"> Public view </h1>
-      <h2 className="font-bold">All users </h2>
+    <div className="p-5"> 
+      <h2 className="text-3xl font-bold mb-3">All users </h2>
       {content}
-      <h2>Frontend server port: {FRONTEND_PORT}</h2>
-      <h2>Backend server port: {BACKEND_PORT}</h2>
     </div>
   )
 }

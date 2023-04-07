@@ -27,6 +27,9 @@ export default function Note() {
       <div className={TypeToStyleAttributes[note.noteType] + " w-fit"}>
         <div className="text-3xl">{note.title}</div>
         <p>{note.text}</p>
+        <button className="border-black border-2 rounded-lg p-3 m-2">Up</button>
+        <button className="border-black border-2 rounded-lg p-3 m-2">Edit</button>
+        <button className="border-black border-2 rounded-lg p-3 m-2">Down</button>
       </div>
     )
   return display
