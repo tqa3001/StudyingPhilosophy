@@ -33,16 +33,16 @@ const notesApiSlice = apiSlice.injectEndpoints({
           }
         },      
     }), 
-    addNote: build.query({
+    addNote: build.mutation({
       query: (noteData) => ({
-        url: "/note", 
+        url: "/notes", 
         method: "POST", 
         body: noteData
       }), 
       validateStatus: 
         (response, result) => (response.status === 200 && !result.isError), 
     }), 
-    patchNote: build.query({
+    patchNote: build.mutation({
       query: (noteData) => ({
         url: "/notes", 
         method: "PATCH", 
@@ -51,7 +51,7 @@ const notesApiSlice = apiSlice.injectEndpoints({
       validateStatus: 
         (response, result) => (response.status === 200 && !result.isError), 
     }), 
-    deleteNote: build.query({
+    deleteNote: build.mutation({
       query: (noteID) => ({
         url: "/notes", 
         method: "DELETE", 
@@ -64,7 +64,7 @@ const notesApiSlice = apiSlice.injectEndpoints({
 })
 
 export const {
-  useGetNotesQuery, useAddNoteQuery
+  useGetNotesQuery, useAddNoteMutation
 } = notesApiSlice; 
 
 export const selectNotesResult = notesApiSlice.endpoints.getNotes.select();  // Why export this one but not the memoized?

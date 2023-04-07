@@ -15,10 +15,15 @@ export default function Source() {
   
   // Component's state
   const [newNoteFormVisible, setFormVisibility] = useState(false)
-  let newNoteForm = null; 
+  let newNoteForm = null;  
+  let noteButtonText = null; 
   if (newNoteFormVisible) {
     newNoteForm = <CreateNewNote source={source} />
-  } else newNoteForm = null; 
+    noteButtonText = "Hide";
+  } else {
+    newNoteForm = null;
+    noteButtonText = "New note"; 
+  }
 
   const toggleFormVisibility = () => setFormVisibility(newNoteFormVisible ^ 1);
 
@@ -40,24 +45,22 @@ export default function Source() {
         <div>URL: <a href="#">{source.url ?? "None"}</a></div>
         <br/>
         <p className="">{source.description}</p>
-        <div className="p-5">
-          <button 
-            onClick={toggleFormVisibility}
-            className="border-2 border-black rounded-full w-full"
-          >New Note</button>
-          {newNoteForm}
-        </div>
-        
         <div className="flex justify-between mt-5 font-bold items-baseline">
-          <div className="text-2xl">Recent Notes</div>
+          <div className="text-2xl">Notes</div>
           <div className="align-text-bottom mb-2">
+            <button 
+              id="newNoteButton"
+              onClick={toggleFormVisibility}
+              className="border-2 border-black rounded-full w-fit px-5"
+            >{noteButtonText}</button>
             <button className="border-black underline border-r-2 rounded-l-full px-5">List</button>
             <button className="border-black underline rounded-r-full px-5">Tree</button>
           </div>
         </div>
         <hr className="h-1 bg-green-600"/>
+        {newNoteForm}
         {console.log(source.noteIDs)}
-        {source.noteIDs.map(noteID => <NotePreview noteID={noteID}/>)}
+        {source.noteIDs.map(noteID => <NotePreview key={noteID} noteID={noteID}/>)}
       </div>
     )
   }
