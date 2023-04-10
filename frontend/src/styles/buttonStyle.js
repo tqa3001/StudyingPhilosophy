@@ -1,2 +1,2 @@
 export const buttonStyleStr = 
-  "m-2 py-3 px-6 border-2 border-green-700 rounded-full bg-green-600 text-white"; 
+  "py-1 px-4 border-2 border-green-600 rounded-full"; 

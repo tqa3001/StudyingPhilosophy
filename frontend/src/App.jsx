@@ -10,7 +10,7 @@ import ListSources from './features/sources/ListSources'
 import ListNotes from './features/notes/ListNotes'
 import User from './features/users/User'
 import Source from './features/sources/Source'
-import Note from './features/notes/Note'
+import NoteViewer from './features/notes/NoteViewer'
 
 export default function App() {  /* Define layout for client-side routing */
   return (
@@ -33,7 +33,7 @@ export default function App() {  /* Define layout for client-side routing */
           {/* Notes */}
           <Route path="notes">
             <Route index element={<ListNotes />} />
-            <Route path=":id" element={<Note/>} />
+            <Route path=":id" element={<NoteViewer/>} />
           </Route>
         </Route> 
       </Route>

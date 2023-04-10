@@ -22,6 +22,7 @@ const getAllNotes = asyncHandler(async (req, res) => {
  */
 const createNote = asyncHandler(async (req, res) => {
   const { sourceID, parentNoteID, noteType, title, text } = req.body; 
+  console.log(req.body); 
   if (!sourceID || !title || !noteType) {
     return res.status(400).json({"err": "Invalid input"}); 
   }
@@ -29,7 +30,7 @@ const createNote = asyncHandler(async (req, res) => {
   if (!source) {
     return res.status(500).json({"err": "No source with given ID"}); 
   } 
-  const newNote = await Note.create({ parentSourceID: sourceID, parentNoteID, noteType, title, text }); 
+  const newNote = await Note.create({ sourceID, parentNoteID, noteType, title, text }); 
   if (!newNote) {
     return res.status(500).json({"err": "Unable to create new note"}); 
   }

@@ -4,7 +4,7 @@ import { selectSourceById, useGetSourcesQuery } from "./sourcesApiSlice";
 import NotePreview from "../notes/NotePreview";
 import { useState } from "react";
 import CreateNewNote from "../notes/CreateNewNote";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Source() {
@@ -37,7 +37,7 @@ export default function Source() {
         <div className="flex justify-between items-baseline">
           <h1 className="text-3xl font-bold">{source.title}</h1> 
           <button>
-            <FontAwesomeIcon icon={faPen}/>
+            <FontAwesomeIcon icon={faEdit}/>
           </button>
         </div>
         <hr className="h-1 bg-green-600"/>
@@ -53,7 +53,7 @@ export default function Source() {
               onClick={toggleFormVisibility}
               className="border-2 border-black rounded-full w-fit px-5"
             >{noteButtonText}</button>
-            <button className="border-black underline border-r-2 rounded-l-full px-5">List</button>
+            <button className="border-black underline border-r-2 rounded-l-full px-5">Category</button>
             <button className="border-black underline rounded-r-full px-5">Tree</button>
           </div>
         </div>

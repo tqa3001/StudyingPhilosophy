@@ -11,7 +11,7 @@ const AutoIncrement = require('mongoose-sequence')(mongoose);
  */
 
 const noteSchema = new mongoose.Schema({
-  parentSourceID: {
+  sourceID: {
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Source', 
     required: true 

@@ -9,7 +9,7 @@ export default function CreateNewNote({ source }) {
     const data = new FormData(formEl); 
     data.append("sourceID", source.id);
     const convertedData = Object.fromEntries(data.entries());
-    console.log(convertedData); 
+    console.log("i hate kids", convertedData); 
     if (convertedData.parentNoteID == "null")
       delete convertedData.parentNoteID;
     addNote(convertedData); 
