@@ -28,7 +28,6 @@ export default function NoteViewer() {
   else if (isErrorNotes)
     display = <div>Error: Unable to load note</div>
   else {
-    console.log("slaying quees", source); 
     let caption = null; 
     let previous = null;
     let after = null; 

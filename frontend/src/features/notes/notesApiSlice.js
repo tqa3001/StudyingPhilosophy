@@ -64,7 +64,7 @@ const notesApiSlice = apiSlice.injectEndpoints({
 })
 
 export const {
-  useGetNotesQuery, useAddNoteMutation
+  useGetNotesQuery, useAddNoteMutation, useDeleteNoteMutation
 } = notesApiSlice; 
 
 export const selectNotesResult = notesApiSlice.endpoints.getNotes.select();  // Why export this one but not the memoized?
@@ -73,6 +73,7 @@ const selectNotesData = createSelector(
   notes => notes.data, 
 )
 // Define more selectors here. 
+// https://stackoverflow.com/questions/71432769/how-to-call-endpoint-select-in-rtk-query-with-an-argument-to-retrieve-cached-
 
 export const {  // Hooks
   selectAll: selectAllNotes, selectById: selectNoteById, selectIds: selectNoteIds  
