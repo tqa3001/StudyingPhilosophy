@@ -7,4 +7,7 @@ router.route('/')
   .patch(noteControllers.updateNote)
   .delete(noteControllers.deleteNote)
 
-module.exports = router; 
+router.route('/:noteID')
+  .get(noteControllers.getTree)
+
+module.exports = router;  

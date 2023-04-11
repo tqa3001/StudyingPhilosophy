@@ -59,12 +59,20 @@ const notesApiSlice = apiSlice.injectEndpoints({
       }), 
       validateStatus: 
         (response, result) => (response.status === 200 && !result.isError), 
+    }),
+    getTree: build.query({
+      query: (noteID) => ({
+        url: `/notes/${noteID}`,
+        method: "GET",
+      }), 
+      validateStatus: 
+        (response, result) => (response.status === 200 && !result.isError), 
     })
   })
 })
 
 export const {
-  useGetNotesQuery, useAddNoteMutation, useDeleteNoteMutation
+  useGetNotesQuery, useAddNoteMutation, useDeleteNoteMutation, useGetTreeQuery
 } = notesApiSlice; 
 
 export const selectNotesResult = notesApiSlice.endpoints.getNotes.select();  // Why export this one but not the memoized?

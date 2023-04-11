@@ -98,4 +98,32 @@ const deleteNote = asyncHandler(async (req, res) => {
   res.status(200).json({"success": `Deleted note with ID ${noteID}`}); 
 }); 
 
-module.exports = { getAllNotes, createNote, updateNote, deleteNote }; 
+/**
+ * @desc Helper function
+ * @param {*} id 
+ * @returns 
+ */
+const traverseTree = async (id) => {  // this function can be further optimized
+  const note = await Note.findById(id);
+  if (!note) return null; 
+  let ret = [note]; 
+  for (let next_id in note.childNotes) {
+    const ret_next = await traverseTree(next_id); 
+    ret = ret.concat(ret_next);
+  }
+  return ret;
+};
+/**
+ * @desc Get a tree of all notes rooted at note with ID
+ * @route GET /notes/noteID
+ * @access Private
+ */
+const getTree = asyncHandler(async (req, res) => {
+  const noteID = req.params.noteID;
+  const tree = await traverseTree(noteID); 
+  if (!tree) 
+    return res.status(500).json({"err": "Unable to query tree"});
+  return res.status(200).json(tree); 
+}); 
+
+module.exports = { getAllNotes, getTree, createNote, updateNote, deleteNote }; 

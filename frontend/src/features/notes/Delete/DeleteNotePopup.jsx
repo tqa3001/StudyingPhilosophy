@@ -1,15 +1,15 @@
 import { useSelector } from "react-redux";
-import { selectNoteById, useDeleteNoteMutation, useGetNotesQuery } from "../notesApiSlice";
+import { selectNoteById, useDeleteNoteMutation, useGetNotesQuery, useGetTreeQuery } from "../notesApiSlice";
 
 export default function DeleteNotePopup({ noteID }) {
-  const { isLoading, isError } = useGetNotesQuery(); 
+  const { isLoading: isLoadingNote, isError: isErrorNote } = useGetNotesQuery(); 
+  const { isLoading: isLoadingTree, isError: isErrorTree, data: tree } = useGetTreeQuery(noteID);
   const note = useSelector((state) => selectNoteById(state, noteID)); 
   const [deletor, mutationResult] = useDeleteNoteMutation(); 
   const cancelDeletion = () => console.log("cancel"); 
   const proceedDeletion = () => {  /* Potential pitfall: unchecked async */
-    if (isLoading || isError) return null; 
-    console.log("testing dispatch"); 
-
+    if (isLoadingNote || isErrorNote || isLoadingTree || isErrorTree) return null; 
+    console.log("TREE:", tree); 
   }
   return (
     <div className="border-red-600 bg-white border-2 rounded-lg p-4">
