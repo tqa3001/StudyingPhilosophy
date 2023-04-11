@@ -2,21 +2,32 @@ import "../../styles/tableStyle.css";
 import { buttonStyleStr } from "../../styles/buttonStyle"; 
 import { useAddNoteMutation } from "./notesApiSlice"; 
 
-export default function CreateNewNote({ source }) {
+export default function CreateNewNote({ source, note }) {
   const [ addNote, mutationResult ] = useAddNoteMutation(); 
   const submitNewNote = async () => {
     const formEl = document.getElementById("createNoteForm"); 
     const data = new FormData(formEl); 
     data.append("sourceID", source.id);
     const convertedData = Object.fromEntries(data.entries());
-    console.log("i hate kids", convertedData); 
-    if (convertedData.parentNoteID == "null")
-      delete convertedData.parentNoteID;
+    if (convertedData.parentNoteID == "null") {
+      if (!note) {
+        delete convertedData.parentNoteID;
+      } else {
+        convertedData.parentNoteID = note.id;
+      }
+    }
+    console.log("certified hood create: ", convertedData); 
     addNote(convertedData); 
   }
+  const title = !note ? "Create new note" : "Add result from current note";
+  const chooseParentNote = note ? <div>{note.title} | {note.id}</div> : (
+    <select id="parentNote" name="parentNoteID" className="border-2 border-black m-2 rounded-lg">
+      <option value="null">No parent note</option>
+    </select>  
+  ); 
   return (
     <div className="bg-gray-300 p-5 rounded-lg">
-      <div className="text-2xl font-bold">Create New Note</div>
+      <div className="text-2xl font-bold">{title}</div>
       <form className="flex-col my-5" id="createNoteForm">
         <table>
           <tr>
@@ -25,12 +36,7 @@ export default function CreateNewNote({ source }) {
           </tr>
           <tr>
             <td>Parent note:</td>
-            <td>
-              <select id="parentNote" name="parentNoteID" className="border-2 border-black m-2 rounded-lg">
-                <option value="null">No parent note</option>
-                <option value="test2">Test2</option>
-              </select>  
-            </td>
+            <td>{chooseParentNote}</td>
           </tr>
           <tr>
             <td>Type:</td>

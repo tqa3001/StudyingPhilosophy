@@ -39,6 +39,9 @@ const createNote = asyncHandler(async (req, res) => {
     if (!parentNote) 
       return res.status(400).json({"err": "No parent note exists with that ID"}); 
     parentNote.childNotes.push(newNote._id); 
+    const updatedParentNote = await parentNote.save(); 
+    if (!updatedParentNote)
+      return res.status(500).json({"err": "Unable to add note to the list of child notes of parent note"});
   } 
   source.noteIDs.push(newNote._id); 
   const updatedSource = await source.save(); 
@@ -123,6 +126,8 @@ const getTree = asyncHandler(async (req, res) => {
   const tree = await traverseTree(noteID); 
   if (!tree) 
     return res.status(500).json({"err": "Unable to query tree"});
+  console.log("SADNESS");
+  console.log(tree);
   return res.status(200).json(tree); 
 }); 
 

@@ -14,7 +14,7 @@ export default function ListNotes() {
     console.log("bruh! ", notes.entities);
     display = (
       <div>
-        {notes.ids.map(noteID => <div key={noteID}><NotePreview noteID={noteID} /></div>)}
+        {notes.ids.map(noteID => <div className="m-1" key={noteID}><NotePreview noteID={noteID} /></div>)}
       </div>
     )
   }

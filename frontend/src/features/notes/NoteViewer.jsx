@@ -30,7 +30,8 @@ export default function NoteViewer() {
   else {
     let caption = null; 
     let previous = null;
-    let after = null; 
+    console.log("balls", note.childNotes); 
+    let after = note.childNotes.map(childNoteID => <div className="m-1"><NotePreview noteID={childNoteID}/></div>) 
     if (isErrorSources) {
       caption = <div>Error displaying source</div>
     } else {
@@ -54,6 +55,7 @@ export default function NoteViewer() {
         <div className="flex h-full">
           {previous}
           <Note note={note} />
+          {after}
         </div>
       </div>
     )

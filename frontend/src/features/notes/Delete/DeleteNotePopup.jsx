@@ -5,14 +5,17 @@ export default function DeleteNotePopup({ noteID }) {
   const { isLoading: isLoadingNote, isError: isErrorNote } = useGetNotesQuery(); 
   const { isLoading: isLoadingTree, isError: isErrorTree, data: tree } = useGetTreeQuery(noteID);
   const note = useSelector((state) => selectNoteById(state, noteID)); 
-  const [deletor, mutationResult] = useDeleteNoteMutation(); 
+  const [deleteNote, mutationResult] = useDeleteNoteMutation(); 
   const cancelDeletion = () => console.log("cancel"); 
   const proceedDeletion = () => {  /* Potential pitfall: unchecked async */
     if (isLoadingNote || isErrorNote || isLoadingTree || isErrorTree) return null; 
-    console.log("TREE:", tree); 
+    console.log("TREE:", tree);
+    for (let normalized_id in tree) {
+      deleteNote(tree[normalized_id]); 
+    }
   }
   return (
-    <div className="border-red-600 bg-white border-2 rounded-lg p-4">
+    <div className="border-red-600 text-black bg-white border-2 rounded-lg p-4">
       <div className="font-bold text-2xl">Are you sure you want to delete this note?</div>
       <div>This action is <b className="text-red-600">irreversible</b>.</div>
       <div className="flex flex-row-reverse">
