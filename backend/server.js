@@ -1,19 +1,36 @@
+/* Main server file */
+
+/**
+ * Basic packages
+ */
 require('dotenv').config(); 
+const mongoose = require('mongoose'); 
 const express = require('express'); 
-const app = express(); 
 const path = require('path'); 
+
+/**
+ * Custom middlewares
+ */
 const { logger } = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler'); 
+const sessionMiddleware = require('./middleware/session');
+
+/**
+ * App
+ */
+const app = express(); 
 const cookieParser = require('cookie-parser'); 
 const cors = require('cors'); 
 const corsOptions = require('./config/corsOptions');
 const PORT = process.env.PORT || 6996;
-const mongoose = require('mongoose'); 
 
 // connect to database
 mongoose.connect(process.env.DATABASE_URI) 
   .then((data) => { console.log('successfully connected to DB')}) 
   .catch((reason) => { console.log(reason); })
+
+// authentication
+app.use(sessionMiddleware);
 
 // make static assets public
 app.use('/', express.static(path.join(__dirname, '/public')));  
@@ -30,6 +47,9 @@ app.use(cors(corsOptions));
 
 // API landing page 
 app.get('/', require('./routes/root'));
+
+// authentication
+app.use('/auth', require('./routes/authRoutes')); 
 
 // users
 app.use('/users', require('./routes/usersRoutes'));

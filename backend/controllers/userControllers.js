@@ -35,7 +35,6 @@ const getAllUsers = asyncHandler(async (req, res) => { // Note: no next(), this 
  */
 const createUser = asyncHandler(async (req, res) => { 
   const { username, password } = req.body; 
-  console.log('I LOVE SEX', username, password); 
   // Check data
   if (!username || !password) {
     return res.status(400).json({"msg": "Invalid input"}); 
@@ -77,7 +76,7 @@ const updateUser = asyncHandler(async (req, res) => {
   // Update
   user.username = username; 
   user.active = active; 
-  user.idAdmin = isAdmin; 
+  user.isAdmin = isAdmin; 
   user.sources = sources; 
   if (password) {  // change password
     user.password = await bcrypt(password, 10); 

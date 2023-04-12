@@ -5,6 +5,7 @@ const fs = require('fs');
 const fsPromises = require('fs').promises; 
 const path = require('path'); 
 
+// generate logging function that can be used anywhere
 const logEvents = async (message, logFileName) => { // Question: why do we need functions to be async?
   const entry = `${Date()}\t${uuid()} | ${message} \n`; 
   try {
@@ -22,7 +23,7 @@ const logEvents = async (message, logFileName) => { // Question: why do we need 
 const logger = (req, res, next) => {
   // This one gets full very quickly so maybe you should add a filter 
   logEvents(`${req.method} | ${req.url} | ${req.headers.origin} `, 'requests.log'); 
-  console.log(`${req.method} | ${req.path}`);
+  console.log(`${req.method} | ${req.path} | Session: ${JSON.stringify(req.session)}`);
   next(); 
 }
 
