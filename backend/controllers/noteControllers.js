@@ -42,8 +42,9 @@ const createNote = asyncHandler(async (req, res) => {
     const updatedParentNote = await parentNote.save(); 
     if (!updatedParentNote)
       return res.status(500).json({"err": "Unable to add note to the list of child notes of parent note"});
-  } 
-  source.noteIDs.push(newNote._id); 
+  } else  {
+    source.noteIDs.push(newNote._id); 
+  }
   const updatedSource = await source.save(); 
   if (!updatedSource) {
     return res.status(500).json({"err": "Unable to create new note"}); 
@@ -93,6 +94,25 @@ const deleteNote = asyncHandler(async (req, res) => {
   const note = await Note.findById(noteID);
   if (!note) {
     return res.status(400).json({"err": "Cannot find note with the given ID"}); 
+  }
+  /* Delete note from its source */
+  const parentSource = await Source.findById(note.sourceID); 
+  if (!parentSource) {
+    return res.status(500).json({"err": "Invalid note with no parentSource"}); 
+  }
+  const idInSource = parentSource.noteIDs.indexOf(noteID);
+  parentSource.noteIDs.splice(idInSource, 1);
+  await parentSource.save();
+  /**
+   * Delete note from its parent note (if exists)
+   * This can be optimized: Only delete from the parent of the root of the tree
+   * we are deleting. 
+   */
+  const parentNote = await Note.findById(note.parentNoteID); 
+  if (parentNote) {
+    const idInParentNote = parentNote.childNotes.indexOf(noteID);
+    parentNote.childNotes.splice(idInParentNote, 1);
+    await parentNote.save();
   }
   const result = await note.delete();
   if (!result) {

@@ -15,6 +15,8 @@ const notesApiSlice = apiSlice.injectEndpoints({
       transformResponse:  // add id (since mongo uses _id) and normalize
         notes => {
           notes = notes.filter(note => (note !== null));
+          console.log("something feels off...\n", notes);
+          console.log("huhu")
           const notesWithIDs = notes.map(note => {
             return {...note, id: note._id};
           }); 

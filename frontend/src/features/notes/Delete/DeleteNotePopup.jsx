@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { selectNoteById, useDeleteNoteMutation, useGetNotesQuery, useGetTreeQuery } from "../notesApiSlice";
+import { redirect } from "react-router-dom";
 
 export default function DeleteNotePopup({ noteID }) {
   const { isLoading: isLoadingNote, isError: isErrorNote } = useGetNotesQuery(); 
@@ -8,11 +9,14 @@ export default function DeleteNotePopup({ noteID }) {
   const [deleteNote, mutationResult] = useDeleteNoteMutation(); 
   const cancelDeletion = () => console.log("cancel"); 
   const proceedDeletion = () => {  /* Potential pitfall: unchecked async */
-    if (isLoadingNote || isErrorNote || isLoadingTree || isErrorTree) return null; 
+    if (isLoadingNote || isErrorNote || isLoadingTree || isErrorTree) 
+      return null; 
     console.log("TREE:", tree);
+    const sourceID = note.sourceID;
     for (let normalized_id in tree) {
       deleteNote(tree[normalized_id]); 
     }
+    redirect(`/sources/${sourceID}`); // make a deleteSuccess component or something. Not working btw.
   }
   return (
     <div className="border-red-600 text-black bg-white border-2 rounded-lg p-4">

@@ -60,7 +60,7 @@ export default function Source() {
         <hr className="h-1 bg-green-600"/>
         {newNoteForm}
         {console.log(source.noteIDs)}
-        {source.noteIDs.map(noteID => <div className="m-1"><NotePreview key={noteID} noteID={noteID}/></div>)}
+        {source.noteIDs.map(noteID => <div key={noteID} className="m-1"><NotePreview noteID={noteID}/></div>)}
       </div>
     )
   }

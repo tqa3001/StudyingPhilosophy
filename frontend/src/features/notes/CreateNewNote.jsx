@@ -1,23 +1,24 @@
 import "../../styles/tableStyle.css"; 
 import { buttonStyleStr } from "../../styles/buttonStyle"; 
 import { useAddNoteMutation } from "./notesApiSlice"; 
+import { useNavigate } from "react-router-dom";
 
 export default function CreateNewNote({ source, note }) {
   const [ addNote, mutationResult ] = useAddNoteMutation(); 
+  const navigate = useNavigate();
   const submitNewNote = async () => {
     const formEl = document.getElementById("createNoteForm"); 
     const data = new FormData(formEl); 
     data.append("sourceID", source.id);
     const convertedData = Object.fromEntries(data.entries());
-    if (convertedData.parentNoteID == "null") {
-      if (!note) {
-        delete convertedData.parentNoteID;
-      } else {
-        convertedData.parentNoteID = note.id;
-      }
+    if (note) {
+      convertedData.parentNoteID = note.id;
+    } else if (convertedData.parentNoteID == "null") {
+      delete convertedData.parentNoteID;
     }
     console.log("certified hood create: ", convertedData); 
     addNote(convertedData); 
+    navigate(0);
   }
   const title = !note ? "Create new note" : "Add result from current note";
   const chooseParentNote = note ? <div>{note.title} | {note.id}</div> : (
