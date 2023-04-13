@@ -15,6 +15,8 @@
 const asyncHandler = require("express-async-handler")
 const bcrypt = require("bcrypt");
 const User = require("../models/User"); 
+const { logEvents } = require("../middleware/logger");
+const Source = require("../models/Source");
 
 const authenticate = asyncHandler(async (req, res) => {
   const { username, password } = req.body; 
@@ -34,4 +36,23 @@ const authenticate = asyncHandler(async (req, res) => {
   }
 }); 
 
-module.exports = { authenticate }
+const isAdmin = async (userID) => {
+  const user = await User.findById(userID);
+  return user && user.isAdmin;
+}
+
+const authorize = asyncHandler(async (req, res, next) => {
+  const sessionID = req.sessionID; 
+  const sessionUserID = req.session.userID; 
+  let reqUserID = req.body.userID;
+  const userIsAdmin = await isAdmin(reqUserID);
+  if ((!sessionUserID || reqUserID != sessionUserID) && !userIsAdmin) {
+    logEvents(`Unauthorized access: ${req.url} | ${req.method} | ${req.header.origins} | 
+      SessionID: ${sessionID}`, 
+      "errors.log"); 
+    return res.status(401).json({"err": "Unauthorized access."}); 
+  }
+  next(); 
+});
+
+module.exports = { authenticate, authorize }

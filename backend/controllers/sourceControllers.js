@@ -5,9 +5,9 @@ const User = require('../models/User');
 /**
  * @desc Get all sources (all users)
  * @route GET /sources
- * @access Private
+ * @access Public
  */
-const getAllSources = asyncHandler(async (req, res) => {
+const getPublicSources = asyncHandler(async (req, res) => {
   const sources = await Source.find({}); 
   console.log(sources); 
   if (!sources) {
@@ -129,5 +129,5 @@ const deleteSource = asyncHandler(async (req, res) => {
 }); 
 
 module.exports = { 
-  getAllSources, getSourcesFromUserID, createSourceAndUpdate, updateSource, deleteSource
+  getPublicSources, getSourcesFromUserID, createSourceAndUpdate, updateSource, deleteSource
 }

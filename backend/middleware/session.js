@@ -13,7 +13,7 @@ const store = new MongoDBStore({
 const sessionMiddleware = session({
   cookie: {
     secure: false,  // assign 'true' when website is https
-    maxAge: 5 * 60 * 1000,  // cookie expires after 5 minutes
+    maxAge: 5 * 60 * 1000,  // cookie expires after 5 minutes 
   }, 
   saveUninitialized: false, 
   /**

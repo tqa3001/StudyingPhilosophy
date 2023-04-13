@@ -48,7 +48,7 @@ const usersApiSlice = apiSlice.injectEndpoints({
             }
           }
     }), 
-    addUser: build.query({
+    addUser: build.mutation({
       query: (userData) => ({
         url: '/users/',
         method: 'POST', 
@@ -57,7 +57,7 @@ const usersApiSlice = apiSlice.injectEndpoints({
       validateStatus: 
         (response, result) => (response.status === 200 && !result.isError), 
     }), 
-    updateUser: build.query({
+    updateUser: build.mutation({
       query: (userData) => ({
         url: '/users', 
         method: 'PATCH', 
@@ -66,7 +66,7 @@ const usersApiSlice = apiSlice.injectEndpoints({
       validateStatus: 
         (response, result) => (response.status === 200 && !result.isError), 
     }), 
-    deleteUser: build.query({
+    deleteUser: build.mutation({
       query: (userID) => ({
         url: "/users", 
         method: "DELETE", 

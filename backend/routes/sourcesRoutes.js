@@ -1,13 +1,14 @@
 const router = require("express").Router(); 
-const sourceControllers = require("../controllers/sourceControllers")
+const sourceControllers = require("../controllers/sourceControllers");
+const { authorize } = require("../controllers/authControllers");
 
 router.route('/')
-  .get(sourceControllers.getAllSources)
-  .post(sourceControllers.createSourceAndUpdate)
-  .patch(sourceControllers.updateSource)
-  .delete(sourceControllers.deleteSource)
+  .get(sourceControllers.getPublicSources)
+  .post(authorize, sourceControllers.createSourceAndUpdate)
+  .patch(authorize, sourceControllers.updateSource)
+  .delete(authorize, sourceControllers.deleteSource);
 
 router.route('/:userID')
-  .get(sourceControllers.getSourcesFromUserID);
+  .get(authorize, sourceControllers.getSourcesFromUserID);
 
 module.exports = router

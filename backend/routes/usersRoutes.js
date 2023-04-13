@@ -1,12 +1,12 @@
 const router = require('express').Router();
 const userControllers = require('../controllers/userControllers'); 
-const sourceControllers = require('../controllers/sourceControllers')
+const { authorize } = require("../controllers/authControllers"); 
 
 router.route('/')
   .get(userControllers.getAllUsers)
   .post(userControllers.createUser)
-  .patch(userControllers.updateUser)
-  .delete(userControllers.deleteUser); 
+  .patch(authorize, userControllers.updateUser)
+  .delete(authorize, userControllers.deleteUser); 
 
 module.exports = router;
   

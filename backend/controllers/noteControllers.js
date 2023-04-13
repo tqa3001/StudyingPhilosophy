@@ -5,9 +5,9 @@ const asyncHandler = require("express-async-handler");
 /**
  * @desc List all notes 
  * @route GET /notes
- * @access private
+ * @access public
  */
-const getAllNotes = asyncHandler(async (req, res) => {
+const getPublicNotes = asyncHandler(async (req, res) => {
   const notes = await Note.find({}); 
   if (!notes?.length) {
     return res.status(400).json({"msg": "No notes found"}); 
@@ -151,4 +151,4 @@ const getTree = asyncHandler(async (req, res) => {
   return res.status(200).json(tree); 
 }); 
 
-module.exports = { getAllNotes, getTree, createNote, updateNote, deleteNote }; 
+module.exports = { getPublicNotes, getTree, createNote, updateNote, deleteNote }; 

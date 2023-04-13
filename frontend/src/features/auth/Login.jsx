@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useLoginQuery } from "./authApiSlice";
 
 export default function Login() {
   const navigate = useNavigate(); 
+  const [login, _] = useLoginQuery(); 
   const login = () => console.log("log in submit"); 
   const redirectToSignUp = () => navigate("/signup"); 
   return (
