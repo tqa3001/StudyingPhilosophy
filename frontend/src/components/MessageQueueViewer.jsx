@@ -1,7 +1,7 @@
 import { useAutoAnimate } from "@formkit/auto-animate/react"
 import store from "../app/store";
 import notificationColor from "../styles/notificationStyle"
-import { newMessageInserted } from "../app/messageQueue/messageQueueSlice";
+import { newMessageInserted, oldestMessagePopped } from "../app/messageQueue/messageQueueSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
@@ -14,18 +14,25 @@ export default function MessageBoard() {
     to changes to the store.
   */
   const state = useSelector(state => state);
-  const newErrorMessage = () => { dispatch(newMessageInserted({type: "error", message: "Error message"})); }
-  const newSuccessMessage = () => { dispatch(newMessageInserted({type: "success", message: "Success message"})); }
-  const newInfoMessage = () => { dispatch(newMessageInserted({type: "info", message: "Info message"})); }
-  return (
+  const newMessage = (messageObj) => {
+    dispatch(newMessageInserted(messageObj));
+    setTimeout(() => dispatch(oldestMessagePopped()), 5000);
+  }
+  return ( 
     <div>
       <div className="text-orange-500">TODO:</div>
       Create action creator + some kind of setInterval to automatically delete from queue <br /> 
-      <button onClick={newErrorMessage}>New Error message</button>
+      <button onClick={
+        () => newMessage({type: "error", message: "Error message"})
+      }>New Error message</button>
       <br />
-      <button onClick={newSuccessMessage}>New Success message</button>      
+      <button onClick={
+        () => newMessage({type: "success", message: "Success message"})
+      }>New Success message</button>      
       <br />
-      <button onClick={newInfoMessage}>New Info message</button> 
+      <button onClick={
+        () => newMessage({type: "info", message: "Info message"})
+      }>New Info message</button> 
       <br/>
       <div ref={animationParent}>
         {state.messageQueue.map((item, index) => (
