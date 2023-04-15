@@ -53,8 +53,7 @@ const createUser = asyncHandler(async (req, res) => {
   const newUser = await User.create({ username, password: hashedPassword, email }); 
   if (newUser) {  // ? is this if necessary? yes, user data might be invalid
     return res.status(201).json({"msg": `User <${username}> successfully created`}); 
-  }
-  console.log('yay!'); 
+  } 
   return res.status(400).json({"msg": "Invalid input"}); 
 });
 

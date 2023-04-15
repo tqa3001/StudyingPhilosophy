@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAddUserMutation } from "../users/usersApiSlice"
 import { useNavigate } from "react-router-dom";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import newMessage from "../../app/messageQueue/newMessage";
 
 export default function Signup() {
   const [addUser, queryResult] = useAddUserMutation();
@@ -25,20 +26,40 @@ export default function Signup() {
       isValid &= input.reportValidity(); 
     }
     if (isValid) {
-      let password = document.getElementById("password").value;
-      let retype = document.getElementById("password-retype").value;
-      return password == retype; 
+      let password = document.getElementById("password");
+      let retype = document.getElementById("password-retype");
+      if (password.value != retype.value) {
+        isValid = false; 
+        newMessage({ type: "error", message: "Passwords did not match" }); 
+        retype.style.borderColor = "red";
+        setTimeout(() => { retype.style.borderColor = "black"; }, 3000);  // cringe
+      }
     }
     return isValid;
   }
 
-  const signup = () => {
+  const signup = async () => {
     const formData = new FormData(document.getElementById("loginForm"));
     const formDataObject = Object.fromEntries(formData.entries()); 
     delete formDataObject.passwordRetype;
     console.log("form data: ", formDataObject); 
     if (checkInputValidity()) {
-      // addUser()
+      try {
+        const response = await addUser(formDataObject).unwrap();
+        console.log("slay new user", response); 
+        newMessage({type: "success", message: response.msg });
+        navigate('/dashboard');
+      } catch(error) {
+        console.log("bruh error nice!", error);
+        /* Refactor? */
+        let username = document.getElementById("username"); 
+        username.style.borderColor = "red";
+        setTimeout(() => { username.style.borderColor = "black"; }, 3000);
+        newMessage({
+          type: "error", 
+          message: error.data.msg
+        })
+      } 
     }
   }
 
@@ -48,20 +69,20 @@ export default function Signup() {
       
       {/* Username */}
       <div className="font-bold">Username</div>
-      <input type="text" name="username" placeholder="e.g. coffee" required
+      <input id="username" type="text" name="username" placeholder="e.g. coffee" required
         className="border-black border-2 my-1"/>
       
       {/* Email */}
       <div className="font-bold">Email</div>
       <div>This email will be used for account recovery.</div>
-      <input type="email" name="email" required
+      <input id="email" type="email" name="email" required
         className="border-black border-2 my-1"/>
       
       {/* Password */}
       <div className="font-bold">Password</div>
       <input id="password" type="password" name="password" required
         className="border-black border-2 my-1"/>
-      <button onClick={TogglePasswordVisibility}
+      <button type="button" onClick={TogglePasswordVisibility}
         className="ml-2"
       ><FontAwesomeIcon icon={faEye} /></button> 
       <div className="font-bold">Re-enter password</div>
