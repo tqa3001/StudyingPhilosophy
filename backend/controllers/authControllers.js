@@ -20,19 +20,20 @@ const Source = require("../models/Source");
 
 const authenticate = asyncHandler(async (req, res) => {
   const { username, password } = req.body; 
+  console.log("gamin???", username, password, req.body);
   if (!username || !password) {
-    return res.status(400).json({"err": "bad login request"}); 
+    return res.status(400).json({"msg": "Error: Bad login request"}); 
   }
   const user = await User.findOne({ username });
   if (!user) {
-    return res.status(500).json({"err": "internal server error"});
+    return res.status(500).json({"msg": "Error: Internal server error"});
   }
   const correctPassword = await bcrypt.compare(password, user.password); 
   if (correctPassword) {
     req.session.userID = user._id;
-    res.status(200).json({"success": "User login success"});
+    res.status(200).json({"msg": `Success: Logged in as ${user.username}`});
   } else {
-    res.status(401).json({"err": "Incorrect username or password"}); 
+    res.status(401).json({"msg": "Error: Incorrect username or password"}); 
   }
 }); 
 

@@ -3,6 +3,7 @@ import { useAddUserMutation } from "../users/usersApiSlice"
 import { useNavigate } from "react-router-dom";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import newMessage from "../../app/messageQueue/newMessage";
+import inputIsValid from "./inputIsValid";
 
 export default function Signup() {
   const [addUser, queryResult] = useAddUserMutation();
@@ -19,12 +20,7 @@ export default function Signup() {
 
   const checkInputValidity = () => {
   // https://www.aleksandrhovhannisyan.com/blog/html-input-validation-without-a-form/
-    let inputs = [...document.getElementsByTagName("input")]; // live htmldocuments -> normal array
-    inputs.reverse();
-    let isValid = true;
-    for (let input of inputs) {  // in != of
-      isValid &= input.reportValidity(); 
-    }
+    let isValid = inputIsValid(document.getElementById("signupForm"));
     if (isValid) {
       let password = document.getElementById("password");
       let retype = document.getElementById("password-retype");
@@ -39,7 +35,7 @@ export default function Signup() {
   }
 
   const signup = async () => {
-    const formData = new FormData(document.getElementById("loginForm"));
+    const formData = new FormData(document.getElementById("signupForm"));
     const formDataObject = Object.fromEntries(formData.entries()); 
     delete formDataObject.passwordRetype;
     console.log("form data: ", formDataObject); 
@@ -64,7 +60,7 @@ export default function Signup() {
   }
 
   return (
-    <form id="loginForm" className="mx-auto my-5 p-5 border-2 border-green-600 bg-green-200 w-fit rounded-lg">
+    <form id="signupForm" className="mx-auto my-5 p-5 border-2 border-green-600 bg-green-200 w-fit rounded-lg">
       <div className="text-3xl font-bold">Register</div>
       
       {/* Username */}

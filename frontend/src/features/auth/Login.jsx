@@ -1,23 +1,51 @@
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "./authApiSlice";
+import inputIsValid from "./inputIsValid";
+import newMessage from "../../app/messageQueue/newMessage";
 
 export default function Login() {
   const navigate = useNavigate(); 
   const [login, _] = useLoginMutation(); 
-  const submitLoginData = () => console.log("log in submit"); 
+  const submitLoginData = async () => {
+    const loginForm = document.getElementById("loginForm");
+    let isValid = inputIsValid(loginForm);
+    if (isValid) {
+      const rawFormData = new FormData(loginForm);
+      const data = Object.fromEntries(rawFormData.entries());
+      /* Refactor: Put this try-catch block in a functon and reuse? */
+      try {
+        const response = await login(data).unwrap();
+        newMessage({
+          type: "success",
+          message: response.msg
+        }); 
+        navigate('/dashboard');
+      } catch(error) {
+        console.log("bruh", error);
+        newMessage({
+          type: "error",
+          message: error.data.msg
+        })
+      }
+    }
+  }
   const redirectToSignUp = () => navigate("/signup"); 
   return (
-    <form id="loginForm" className="mx-auto my-5 p-5 border-2 border-green-600 bg-green-200 w-1/3 rounded-lg">
-      <div className="text-3xl font-bold">Login</div>
-      <div className="font-bold">Username</div>
-      <input type="text" name="username" placeholder="e.g. coffee"
-        className="border-black border-2 my-1"/>
-      <div className="font-bold">Password</div>
-      <input type="password" name="password"
-        className="border-black border-2 my-1"/>
-      <br />
-      <button onClick={submitLoginData}
-        className="rounded-full bg-green-500 my-1 py-1 px-5">Login</button>
+    <form id="loginForm" 
+      className="mx-auto my-5 p-10 border-2 border-green-600 bg-green-200 w-1/3 rounded-lg">
+      <div>
+        <div className="text-3xl font-bold">Login</div>
+        <div className="font-bold">Username</div>
+        <input type="text" name="username" placeholder="e.g. coffee" required
+          className="border-black border-2 my-1 w-full"/>
+        <div className="font-bold">Password</div>
+        <input type="password" name="password" required
+          className="border-black border-2 my-1 w-full"/>
+        <br />
+        <button type="button" onClick={submitLoginData}
+          className="rounded-full bg-green-500 my-1 py-1 px-5 w-full">Login</button>
+      </div>
+      
       <div className="flex flex-row-reverse">
         <div>
           Or&nbsp;

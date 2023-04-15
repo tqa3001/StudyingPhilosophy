@@ -13,20 +13,20 @@ export default function MessageBoard() {
   const state = useSelector(state => state);
   return ( 
     <div>
-      <div className="text-orange-500">TODO:</div>
-      Create action creator + some kind of setInterval to automatically delete from queue <br /> 
-      <button onClick={
-        () => newMessage({type: "error", message: "Error message"})
-      }>New Error message</button>
-      <br />
-      <button onClick={
-        () => newMessage({type: "success", message: "Success message"})
-      }>New Success message</button>      
-      <br />
-      <button onClick={
-        () => newMessage({type: "info", message: "Info message"})
-      }>New Info message</button> 
-      <br/>
+      <div className="text-orange-500">
+        <button onClick={
+          () => newMessage({type: "error", message: "Error message"})
+        }>New Error message</button>
+        <br />
+        <button onClick={
+          () => newMessage({type: "success", message: "Success message"})
+        }>New Success message</button>      
+        <br />
+        <button onClick={
+          () => newMessage({type: "info", message: "Info message"})
+        }>New Info message</button> 
+        <br/>
+      </div>
       <div ref={animationParent}>
         {state.messageQueue.map((item, index) => (
           <div key={index}
