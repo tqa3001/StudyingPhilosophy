@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useLoginQuery } from "./authApiSlice";
+import { useLoginMutation } from "./authApiSlice";
 
 export default function Login() {
   const navigate = useNavigate(); 
-  const [login, _] = useLoginQuery(); 
-  const login = () => console.log("log in submit"); 
+  const [login, _] = useLoginMutation(); 
+  const submitLoginData = () => console.log("log in submit"); 
   const redirectToSignUp = () => navigate("/signup"); 
   return (
     <form id="loginForm" className="mx-auto my-5 p-5 border-2 border-green-600 bg-green-200 w-1/3 rounded-lg">
@@ -16,7 +16,7 @@ export default function Login() {
       <input type="password" name="password"
         className="border-black border-2 my-1"/>
       <br />
-      <button onClick={login}
+      <button onClick={submitLoginData}
         className="rounded-full bg-green-500 my-1 py-1 px-5">Login</button>
       <div className="flex flex-row-reverse">
         <div>

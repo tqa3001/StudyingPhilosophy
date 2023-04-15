@@ -37,7 +37,12 @@ export default function Note({ note }) {
           </button>
           <button 
             onClick={toggleEditComponent}
-            className="bg-white text-black rounded-full px-2 py-1 m-1">
+            className="
+              bg-white hover:bg-gray-400 active:bg-gray-600 
+              transition-colors duration-200
+              text-black 
+              rounded-full px-2 py-1 m-1
+            ">
             <FontAwesomeIcon icon={faEdit}/>
           </button>
           <button className="bg-white text-black rounded-full px-2 py-1 m-1">

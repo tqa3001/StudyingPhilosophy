@@ -57,7 +57,7 @@ const usersApiSlice = apiSlice.injectEndpoints({
       validateStatus: 
         (response, result) => (response.status === 200 && !result.isError), 
     }), 
-    updateUser: build.mutation({
+    updateUser: build.mutation({  /* Remember to add session info */
       query: (userData) => ({
         url: '/users', 
         method: 'PATCH', 
@@ -80,7 +80,7 @@ const usersApiSlice = apiSlice.injectEndpoints({
 
 /* RTK Query automatically generates a hook for each endpoint of an api slice */
 export const {
-  useGetUsersQuery
+  useGetUsersQuery, useAddUserMutation
 } = usersApiSlice; 
 
 

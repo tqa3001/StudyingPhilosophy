@@ -5,7 +5,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
  * Also make sure apis are const 
  * RTK Query -> Query or Mutation (get/set) 
  */
-export const apiSlice = createApi({
+export const apiSlice = createApi({  /* reducer path is `api` */
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:" + `${BACKEND_PORT}` }), 
   tagTypes: ['User', 'Source', 'Note'], 
   endpoints: build => ({})

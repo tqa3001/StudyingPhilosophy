@@ -2,7 +2,7 @@ import { apiSlice } from "../../app/api/apiSlice";
 
 const authApiSlice = apiSlice.injectEndpoints({
   endpoints: build => ({
-    login: build.query({
+    login: build.mutation({
       query: (inputUsername, inputPassword) => ({
         url: '/auth',
         method: 'POST',
@@ -15,4 +15,4 @@ const authApiSlice = apiSlice.injectEndpoints({
   })
 });
 
-export const { useLoginQuery } = authApiSlice;
+export const { useLoginMutation } = authApiSlice;

@@ -34,19 +34,23 @@ const getAllUsers = asyncHandler(async (req, res) => { // Note: no next(), this 
  * @access Private
  */
 const createUser = asyncHandler(async (req, res) => { 
-  const { username, password } = req.body; 
+  const { username, email, password } = req.body; 
   // Check data
-  if (!username || !password) {
+  if (!username || !email || !password) {
     return res.status(400).json({"msg": "Invalid input"}); 
   }
   // Check duplicate (if async-await and u want to return a promise -> exec()? Hmm exec() is like quantum measurement)
-  const dup = await User.findOne({ username }).select('-password').lean().exec();  
-  if (dup) {
+  const dupUsername = await User.findOne({ username }).select('-password').lean();  
+  if (dupUsername) {
     return res.status(400).json({"msg": "Username already exists"}); 
   } 
+  const dupEmail = await User.findOne({ email }).select('-password').lean(); 
+  if (dupEmail) {
+    return res.status(400).json({"msg": "An user with this email already exists"}); 
+  }
   // Hash password (10 salt rounds, return a promise)
-  const hashedPasswd = await bcrypt.hash(password, 10); 
-  const newUser = await User.create({ username, "password": hashedPasswd }); 
+  const hashedPassword = await bcrypt.hash(password, 10); 
+  const newUser = await User.create({ username, password: hashedPassword, email }); 
   if (newUser) {  // ? is this if necessary? yes, user data might be invalid
     return res.status(201).json({"msg": `User <${username}> successfully created`}); 
   }

@@ -1,12 +1,15 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./api/apiSlice"; 
-import { formReducer } from "./form/formSlice";
+import sessionReducer from './session/sessionSlice';
+import messageQueueReducer from "./messageQueue/messageQueueSlice";
 
 /* Basically adding default reducers + middlewares */
 
 const rootReducer = combineReducers({
+  // apiSlice.reducerPath is 'api' (default value), if multiple apislices -> need different reducer paths
   [apiSlice.reducerPath]: apiSlice.reducer,   // this es2015 syntax is called "key interpolation"
-  form: formReducer,
+  session: sessionReducer,
+  messageQueue: messageQueueReducer,
 }); // access: state.[apiSlice.reducerPath], state.form
 
 const store = configureStore({
