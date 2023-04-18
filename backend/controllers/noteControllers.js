@@ -24,32 +24,32 @@ const createNote = asyncHandler(async (req, res) => {
   const { sourceID, parentNoteID, noteType, title, text } = req.body; 
   console.log(req.body); 
   if (!sourceID || !title || !noteType) {
-    return res.status(400).json({"err": "Invalid input"}); 
+    return res.status(400).json({"msg": "Error: Invalid input"}); 
   }
   const source = await Source.findById(sourceID); 
   if (!source) {
-    return res.status(500).json({"err": "No source with given ID"}); 
+    return res.status(500).json({"msg": "Error: No source with given ID"}); 
   } 
   const newNote = await Note.create({ sourceID, parentNoteID, noteType, title, text }); 
   if (!newNote) {
-    return res.status(500).json({"err": "Unable to create new note"}); 
+    return res.status(500).json({"msg": "Error: Unable to create new note"}); 
   }
   if (parentNoteID) {
     const parentNote = await Note.findById(parentNoteID); 
     if (!parentNote) 
-      return res.status(400).json({"err": "No parent note exists with that ID"}); 
+      return res.status(400).json({"msg": "Error: No parent note exists with that ID"}); 
     parentNote.childNotes.push(newNote._id); 
     const updatedParentNote = await parentNote.save(); 
     if (!updatedParentNote)
-      return res.status(500).json({"err": "Unable to add note to the list of child notes of parent note"});
+      return res.status(500).json({"msg": "Error: Unable to add note to the list of child notes of parent note"});
   } else  {
     source.noteIDs.push(newNote._id); 
   }
   const updatedSource = await source.save(); 
   if (!updatedSource) {
-    return res.status(500).json({"err": "Unable to create new note"}); 
+    return res.status(500).json({"msg": "Error: Unable to create new note"}); 
   }
-  res.status(200).json({"success": `Created new note with title ${newNote.title} for source with title ${updatedSource.title}`})
+  res.status(200).json({"msg": `Success: Created new note with title ${newNote.title} for source with title ${updatedSource.title}`})
 }); 
 
 /**
@@ -60,11 +60,11 @@ const createNote = asyncHandler(async (req, res) => {
 const updateNote = asyncHandler(async (req, res) => {
   const { noteID, newParentSourceID, newTitle, newText, newType } = req.body; 
   if (!noteID) {
-    return res.status(400).json({"err": "ID of note must not be empty"}); 
+    return res.status(400).json({"msg": "Error: ID of note must not be empty"}); 
   } 
   const note = await Note.findById(noteID); 
   if (!note) {
-    return res.status(400).json({"err": "Cannot find a note with the given ID"}); 
+    return res.status(400).json({"msg": "Error: Cannot find a note with the given ID"}); 
   }
   if (newParentSourceID)  
     note.parentSourceID = newParentSourceID; 
@@ -76,9 +76,9 @@ const updateNote = asyncHandler(async (req, res) => {
     note.type = newType;  
   const updatedNote = await note.save(); 
   if (!updatedNote) {
-    return res.status(500).json({"err": "Unable to update note"}); 
+    return res.status(500).json({"msg": "Error: Unable to update note"}); 
   }
-  res.return(200).json({"success": `Updated note with ID ${noteID}`})
+  res.return(200).json({"msg": `Success: Updated note with ID ${noteID}`})
 }); 
 
 /**
@@ -89,16 +89,16 @@ const updateNote = asyncHandler(async (req, res) => {
 const deleteNote = asyncHandler(async (req, res) => {
   const { noteID } = req.body; 
   if (!noteID) {
-    return res.status(400).json({"err": "ID of note cannot be empty"}); 
+    return res.status(400).json({"msg": "Error: ID of note cannot be empty"}); 
   }
   const note = await Note.findById(noteID);
   if (!note) {
-    return res.status(400).json({"err": "Cannot find note with the given ID"}); 
+    return res.status(400).json({"msg": "Error: Cannot find note with the given ID"}); 
   }
   /* Delete note from its source */
   const parentSource = await Source.findById(note.sourceID); 
   if (!parentSource) {
-    return res.status(500).json({"err": "Invalid note with no parentSource"}); 
+    return res.status(500).json({"msg": "Error: Invalid note with no parentSource"}); 
   }
   const idInSource = parentSource.noteIDs.indexOf(noteID);
   parentSource.noteIDs.splice(idInSource, 1);
@@ -116,9 +116,9 @@ const deleteNote = asyncHandler(async (req, res) => {
   }
   const result = await note.delete();
   if (!result) {
-    return res.status(500).json({"err": "Unable to delete note"}); 
+    return res.status(500).json({"msg": "Error: Unable to delete note"}); 
   }
-  res.status(200).json({"success": `Deleted note with ID ${noteID}`}); 
+  res.status(200).json({"msg": `Success: Deleted note with ID ${noteID}`}); 
 }); 
 
 /**
@@ -145,7 +145,7 @@ const getTree = asyncHandler(async (req, res) => {
   const noteID = req.params.noteID;
   const tree = await traverseTree(noteID); 
   if (!tree) 
-    return res.status(500).json({"err": "Unable to query tree"});
+    return res.status(500).json({"msg": "Error: Unable to query tree"});
   console.log("SADNESS");
   console.log(tree);
   return res.status(200).json(tree); 

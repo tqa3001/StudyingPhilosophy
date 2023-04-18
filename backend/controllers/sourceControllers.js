@@ -12,7 +12,7 @@ const getPublicSources = asyncHandler(async (req, res) => {
   console.log(sources); 
   if (!sources) {
     return res.status(500).json({
-      "err": "Internal server error 500"
+      "msg": "Error: Internal server error 500"
     })
   }
   res.status(200).json(sources);  // an array of sources which should be normalized by redux's EntityAdapter
@@ -25,11 +25,11 @@ const getPublicSources = asyncHandler(async (req, res) => {
 const getSourcesFromUserID = asyncHandler(async (req, res) => {
   const { userID } = req.params; 
   if (!userID) {
-    return res.status(400).json({"err": "Invalid user ID"}); 
+    return res.status(400).json({"msg": "Error: Invalid user ID"}); 
   } 
   const user = await User.findById(userID); 
   if (!user) {
-    return res.status(400).json({"err": "Cannot find user with such ID"}); 
+    return res.status(400).json({"msg": "Error: find user with such ID"}); 
   } 
   /**
    * We need promise.all to merge them into one promise to await
@@ -54,26 +54,26 @@ const createSourceAndUpdate = asyncHandler(async (req, res) => {
   const { userID, origin, title, description } = req.body; 
   if (!userID || !origin || !title) {
     return res.status(400).json({ 
-      "err": `Some info is missing. userID: ${userID} | origin: ${origin} | title: ${title} | desc: ${description}` 
+      "msg": `Error: Some info is missing. userID: ${userID} | origin: ${origin} | title: ${title} | desc: ${description}` 
     }); 
   }
   const user = await User.findById(userID); 
   if (!user) {
     return res.status(400).json({
-      "err": `Cannot find user with ID ${userID}`
+      "msg": `Error: Cannot find user with ID ${userID}`
     })
   }
   const newSource = await Source.create({ parentUserID: userID, origin, title, description});  // god bless asyncHandler
   if (!newSource) {
-    return res.status(500).json({ "err": "Unable to create source" }); 
+    return res.status(500).json({ "msg": "Error: Unable to create source" }); 
   }
   console.log("New source created, updating user..."); 
   user.sources.push(newSource._id); 
   const updatedUser = await user.save(); 
   if (!updatedUser) {
-    return res.status(500).json({ "err": "New source is created but is not added to the user "}); 
+    return res.status(500).json({ "msg": "Error: New source is created but is not added to the user "}); 
   }
-  res.status(201).json({ "msg": `Successfully added new source to user <${updatedUser.username}>` }); 
+  res.status(201).json({ "msg": `Success: Added new source to user <${updatedUser.username}>` }); 
 }); 
 
 /**
@@ -84,11 +84,11 @@ const createSourceAndUpdate = asyncHandler(async (req, res) => {
 const updateSource = asyncHandler(async (req, res) => {
   const { sourceID, newParentUserID, newTitle, newOrigin, newDescription, newUrl } = req.body; 
   if (!sourceID) {
-    return res.status(400).json({"err": "ID for source is not given"});
+    return res.status(400).json({"msg": "Error: ID for source is not given"});
   } 
   const source = await Source.findById(sourceID); 
   if (!source) {
-    return res.status(500).json({"err": "Cannot find a source with that ID"}); 
+    return res.status(500).json({"msg": "Error: Cannot find a source with that ID"}); 
   }
   if (newParentUserID)
     source.parentUserID = newParentUserID; 
@@ -102,9 +102,9 @@ const updateSource = asyncHandler(async (req, res) => {
     source.description = newDescription; 
   const updateSource = await source.save(); 
   if (!updateSource) {
-    return res.status(500).json({"err": "Error updating source"}); 
+    return res.status(500).json({"msg": `Error updating source ${sourceID}`}); 
   } 
-  res.status(200).json({"success": "Successfully updated source"}); 
+  res.status(200).json({"msg": "Success: Updated source"}); 
 }); 
 
 /**
@@ -115,17 +115,17 @@ const updateSource = asyncHandler(async (req, res) => {
 const deleteSource = asyncHandler(async (req, res) => {
   const { sourceID } = req.body;
   if (!sourceID) {
-    return res.status(400).json({"err": "Source ID is not given"}); 
+    return res.status(400).json({"msg": "Error: Source ID is not given"}); 
   }
   const source = await Source.findById(sourceID); 
   if (!source) {
-    return res.status(400).json({"err": "No source is found with the given ID"}); 
+    return res.status(400).json({"msg": "Error: No source is found with the given ID"}); 
   } 
   const sourceInfo = await source.delete(); 
   if (!sourceInfo) {
-    return res.status(500).json({"err": "Couldn't delete the source"}); 
+    return res.status(500).json({"msg": "Error: Couldn't delete the source"}); 
   }
-  res.status(200).json({"success": "Deleted the source"});  
+  res.status(200).json({"msg": "Success: Deleted the source"});  
 }); 
 
 module.exports = { 
