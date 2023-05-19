@@ -13,8 +13,15 @@ const store = new MongoDBStore({
 const sessionMiddleware = session({
   cookie: {
     secure: false,  // assign 'true' when website is https
+    // domain: 
     maxAge: 5 * 60 * 1000,  // cookie expires after 5 minutes 
   }, 
+  /**
+   * Note on SameSite attribute: default = none -> dangerous in production
+   * this allows cross-origin access of cookies
+   * Production: SameSite = lax, secure = true. Read more:
+   * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite
+   */
   saveUninitialized: false, 
   /**
    * New secret: add it to front (otherwise all sessions will be invalidated)

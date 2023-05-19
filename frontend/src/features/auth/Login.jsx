@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "./authApiSlice";
 import inputIsValid from "./inputIsValid";
 import newMessage from "../../app/messageQueue/newMessage";
+import store from "../../app/store";
+import { loginIsSuccessful } from "../../app/session/sessionSlice";
 
 export default function Login() {
   const navigate = useNavigate(); 
@@ -19,6 +21,11 @@ export default function Login() {
           type: "success",
           message: response.msg
         }); 
+        store.dispatch(loginIsSuccessful({
+          sessionID: null,
+          userID: null,
+          errorMessage: null
+        }));
         navigate('/dashboard');
       } catch(error) {
         console.log("bruh", error);

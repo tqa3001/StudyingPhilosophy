@@ -8,7 +8,7 @@ const corsOptions = {
       callback(new Error('CORS forbids access')); 
     }
   }, 
-  credentials: true,  // set Access-Control-Allow-Headers
+  credentials: true,  // Accept credentials (cookies) sent by the client
   optionsSuccessStatus: 200  // instead of 204
 }; 
 
