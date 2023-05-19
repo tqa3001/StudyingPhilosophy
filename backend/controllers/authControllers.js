@@ -42,12 +42,13 @@ const isAdmin = async (userID) => {
   return user && user.isAdmin;
 }
 
-const authorize = asyncHandler(async (req, res, next) => {
+/* If request needs authorization, add parameter :userID */
+const authorize = asyncHandler(async (req, res, next) => {  
   const sessionID = req.sessionID; 
-  const sessionUserID = req.session.userID; 
-  let reqUserID = req.body.userID;
+  const sessionUserID = String(req.session.userID);
+  let reqUserID = req.params.userID;
   const userIsAdmin = await isAdmin(reqUserID);
-  if ((!sessionUserID || reqUserID != sessionUserID) && !userIsAdmin) {
+  if ((!sessionUserID || reqUserID !== sessionUserID) && !userIsAdmin) {
     logEvents(`Unauthorized access: ${req.url} | ${req.method} | ${req.header.origins} | 
       SessionID: ${sessionID}`, 
       "errors.log"); 
