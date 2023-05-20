@@ -31,7 +31,11 @@ const authenticate = asyncHandler(async (req, res) => {
   const correctPassword = await bcrypt.compare(password, user.password); 
   if (correctPassword) {
     req.session.userID = user._id;
-    res.status(200).json({"msg": `Success: Logged in as ${user.username}`});
+    res.status(200).json({
+      "msg": `Success: Logged in as ${user.username}`,
+      "sessionID": req.sessionID,
+      "userID": user._id
+    });
   } else {
     res.status(401).json({"msg": "Error: Incorrect username or password"}); 
   }

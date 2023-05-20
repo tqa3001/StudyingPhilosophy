@@ -23,8 +23,8 @@ export default function Login() {
         }); 
         console.log("bruh cum ass tits", response);
         store.dispatch(loginIsSuccessful({
-          sessionID: null,
-          userID: null,
+          sessionID: response.sessionID,
+          userID: response.userID,
           errorMessage: null
         }));
         navigate('/dashboard');

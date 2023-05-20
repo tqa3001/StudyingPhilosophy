@@ -34,14 +34,16 @@ export default function App() {  /* Define layout for client-side routing */
           <Route index element={<Admin />}/>
           <Route path="users">
             <Route index element={<ListUsers />} />
-            <Route path=":id" element={<User/>} />
+            <Route path=":id" element={<User />} />
           </Route>
         </Route>
 
         {/* User-specific dashboard */ }        
         <Route path="dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
-        </Route> 
+        </Route>
+
+        <Route path="profile" element={<User />} />
 
         {/* User-specific sources and notes for each source */}
         <Route path="sources">

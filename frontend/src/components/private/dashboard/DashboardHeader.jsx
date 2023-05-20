@@ -20,13 +20,14 @@ export default function DashboardHeader() {
     >
       <FontAwesomeIcon icon={faArrowLeft} />
     </button>
-    homeButton = <button 
+    homeButton = <Link 
+      to=""
       className="border-2 rounded-md p-2 mx-1 px-3"
       title="Home"
       onClick={goHome} /* Tricky bug: onClick={navigate("/dashboard")}*/
     >
       <FontAwesomeIcon icon={faHouse} />
-    </button>  
+    </Link>  
   }
   if (pathname !== "/settings") { // route will be implemented later. 
     settingsButton = <button

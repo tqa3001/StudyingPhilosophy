@@ -1,9 +1,23 @@
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'  /* reloadDocument -> skip client-side routing -> normal a href */
 
 export default function Landing() {
   const landingButtonStyle = 
     "text-white py-2 px-5 rounded-full bg-blue-500 text-center" +
     " hover:bg-blue-700";
+  const state = useSelector(state => state);
+  console.log("STATE:\n", state);
+  let customizedEntry = null;
+  if (state.session.sessionID == null) {
+    customizedEntry = (
+      <div className="flex space-x-3">
+        <Link to="/login"><div className={landingButtonStyle}>Login</div></Link> 
+        <Link to="/signup"><div className={landingButtonStyle}>Signup</div></Link> 
+      </div>
+    )
+  } else {
+    customizedEntry = <Link to="/dashboard" className={landingButtonStyle}>Open dashboard</Link>
+  }
   return (
     <div>
       <section className="p-10">
@@ -14,10 +28,9 @@ export default function Landing() {
         <div className="flex space-x-10 py-4">
           <div className="w-1/2">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            <div className="w-1/3 mt-10">  {/*mx-auto*/}
+            <div className="mt-10">  {/*mx-auto*/}
               <div className="flex space-x-3">
-                <Link to="/login"><div className={landingButtonStyle}>Login</div></Link> 
-                <Link to="/signup"><div className={landingButtonStyle}>Signup</div></Link> 
+                {customizedEntry}
                 <Link to="/public"><div className={landingButtonStyle}>Browse</div></Link> 
               </div>
             </div>

@@ -1,4 +1,5 @@
 export default function ProfileDetails({ editMode }) {
+  let display = null;
   if (editMode) {
     display = (
       <form action="#" method="POST">

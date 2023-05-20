@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useGetUsersQuery, selectUserById } from "../../../features/users/usersApiSlice";
 import { useGetSourcesQuery } from "../../../features/sources/sourcesApiSlice";
 import { Link } from "react-router-dom";
+import ProfileDetails from "./ProfileDetails";
 
 export default function User() {
   const location = useLocation();
@@ -16,6 +18,8 @@ export default function User() {
   const user = useSelector((state) => selectUserById(state, userID));  // idk why this isn't working
   const sourcesQuery = useGetSourcesQuery(userID); 
   const filtered_sources = sourcesQuery.data; 
+  const [isEditting, setIsEditting] = useState(0);
+  let toggleEdit = () => { setIsEditting(isEditting ^ 1); }
   /** 
    * Why do we need a hook to use selectors? what are hooks for smh why not just functions is hook just a fancy
    * way to write a function smh
@@ -33,6 +37,8 @@ export default function User() {
     display = (
       <div>
         <h1 className="text-3xl font-bold">User: {user.username}</h1>
+        <ProfileDetails editMode={isEditting}/>
+        <button onClick={toggleEdit}>Edit</button>
         <h2 className="font-bold">All sources </h2>
         <div>
           {
@@ -53,7 +59,7 @@ export default function User() {
   }
   console.log("bruh: ", isLoading); 
   return (
-    <div>
+    <div className="p-10">
       User fetch status: {fetchStatus} 
       {display}
     </div>
