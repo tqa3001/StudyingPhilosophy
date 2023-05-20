@@ -17,28 +17,39 @@ export default function App() {  /* Define layout for client-side routing */
   return (
     <Routes>
       <Route path="/" element={<Layout />}>  
-        <Route index element={<Landing />} />  { /* Each route must have an index (?) */}
+      
+        {/* Landing page */}
+        <Route index element={<Landing />} />
+
+        {/* Authentication */}
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="dashboard" element={<DashboardLayout />}>
-          <Route index element={<Welcome />} />          
-          {/* Sources */ }
-          <Route path="sources">
-            <Route index element={<ListSources />} />
-            <Route path=":id" element={<Source/>} />
-          </Route>
-          {/* Users */}
+
+        {/* Public routes */}
+        <Route path="public" />
+
+        {/* Admin routes */}
+        <Route path="admin">
           <Route path="users">
             <Route index element={<ListUsers />} />
             <Route path=":id" element={<User/>} />
           </Route>
-          {/* Notes */}
-          <Route path="notes">
-            <Route index element={<ListNotes />} />
-            <Route path=":id" element={<NoteViewer/>} />
-          </Route>
+        </Route>
+
+        {/* User-specific dashboard */ }        
+        <Route path="dashboard" element={<DashboardLayout />}>
+          <Route index element={<Welcome />} />
         </Route> 
-      </Route>
+
+        {/* User-specific sources and notes for each source */}
+        <Route path="sources">
+          <Route index element={<ListSources />} />
+          <Route path=":source-id"/>
+            <Route index element={<Source/>} /> {/* TODO: add listnotes to source */}
+            <Route path=":note-id" element={<NoteViewer/>} />
+          </Route>
+        </Route>
+
     </Routes>
   )
 }
