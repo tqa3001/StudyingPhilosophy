@@ -27,7 +27,7 @@ export default function CreateNewNote({ source, note }) {
     </select>  
   ); 
   return (
-    <div className="bg-gray-300 p-5 rounded-lg">
+    <div className="p-5 rounded-lg">
       <div className="text-2xl font-bold">{title}</div>
       <form className="flex-col my-5" id="createNoteForm">
         <table>

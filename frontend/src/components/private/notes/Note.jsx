@@ -23,7 +23,7 @@ export default function Note({ note }) {
   let deleteComponent = !showDelete ? null : <DeleteNotePopup noteID={note.id}/> 
   const display = (
     <div className={TypeToStyleAttributes[note.noteType] + " w-fit"}>
-      <div className="text-3xl font-bold">{note.title}</div>
+      <div className="text-xl font-bold">{note.title}</div>
       <p>{note.text}</p>
       <div className="flex justify-between">
         <button 

@@ -16,7 +16,10 @@ export default function Landing() {
       </div>
     )
   } else {
-    customizedEntry = <Link to="/dashboard" className={landingButtonStyle}>Open dashboard</Link>
+    customizedEntry = 
+    <Link to="/dashboard" className={landingButtonStyle + " bg-yellow-500 hover:bg-yellow-600"}>
+      Open dashboard
+    </Link>
   }
   return (
     <div>
@@ -28,7 +31,7 @@ export default function Landing() {
         <div className="flex space-x-10 py-4">
           <div className="w-1/2">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            <div className="mt-10">  {/*mx-auto*/}
+            <div className="mt-5">  {/*mx-auto*/}
               <div className="flex space-x-3">
                 {customizedEntry}
                 <Link to="/public"><div className={landingButtonStyle}>Browse</div></Link> 
@@ -36,8 +39,7 @@ export default function Landing() {
             </div>
           </div>
           <div className="flex space-x-4">
-            <img src="https://picsum.photos/200/300" alt="random-img" />
-            <img src="https://picsum.photos/200/300" alt="random-img" />
+            <img src="https://picsum.photos/600/300" alt="random-img" />
           </div>
         </div>
       </section>

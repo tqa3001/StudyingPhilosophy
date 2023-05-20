@@ -9,9 +9,9 @@ import { Link } from "react-router-dom";
 export default function Layout() {
   return (
     <div className="h-full">
-      <div className="flex justify-between bg-black text-white">
-        <Link to="/" className="p-3 ">StudyPhilosophy v.0.0.1</Link>
-        <a href="https://github.com/tqa3001/StudyingPhilosophy" className="my-auto mx-4 w-5 fa-lg">
+      <div className="flex justify-between bg-black text-white px-10">
+        <Link to="/" className="py-3">StudyPhilosophy v.0.0.1</Link>
+        <a href="https://github.com/tqa3001/StudyingPhilosophy" className="my-auto mx-4 w-5 fa-lg flex">
           <FontAwesomeIcon icon={faGithub} />
         </a>
       </div>

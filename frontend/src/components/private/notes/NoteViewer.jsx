@@ -1,16 +1,15 @@
 import Note from "./Note";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { selectNoteById, useGetNotesQuery } from "../../../features/notes/notesApiSlice";
 import { selectSourceById, useGetSourcesQuery } from "../../../features/sources/sourcesApiSlice";
 import NotePreview from "./NotePreview";
 
 export default function NoteViewer() {
-  const location = useLocation();
-  const { noteID } = location.state; 
+  const { noteID } = useParams();
   const { isLoading: isLoadingNotes, isError: isErrorNotes } = useGetNotesQuery(); 
   const { isLoading: isLoadingSources, isError: isErrorSources } = useGetSourcesQuery(); 
-  const note = useSelector((state) => selectNoteById(state, noteID)); // to select one must query first
+  const note = useSelector((state) => selectNoteById(state, noteID));
   /**
    * This is unnecessary, I did this because I thought React didn't rerender sourceSelector 
    * with if else inside :(
@@ -31,31 +30,39 @@ export default function NoteViewer() {
     let caption = null; 
     let previous = null;
     console.log("balls", note.childNotes); 
-    let after = note.childNotes.map(childNoteID => <div className="m-1"><NotePreview noteID={childNoteID}/></div>) 
+    let after = note.childNotes.map(childNoteID => 
+      <div className="mb-1">
+        <NotePreview sourceID={note.sourceID} noteID={childNoteID} />
+      </div>
+    );
     if (isErrorSources) {
-      caption = <div>Error displaying source</div>
+      caption = <div>Error displaying source</div>;
     } else {
-      caption = (
-        <div className="font-bold">
-          <div>Viewing notes for: {source.title} </div>
-        </div>
-      )
+      caption = <div>Viewing notes for: {source.title} </div>;
       if (note.parentNoteID) {
-        previous = <NotePreview noteID={note.parentNoteID}/>
+        previous = <NotePreview sourceID={note.sourceID} noteID={note.parentNoteID}/>
       } else {
         previous = 
-        <div className="rounded-lg p-3 bg-violet-700 text-white">
-          Source: {note.sourceID}
-        </div>
+        <Link to="..">
+          <div className="rounded-lg p-3 bg-violet-700 text-white">
+            Source: {note.sourceID}
+          </div>
+        </Link>
       }
     }
     display = (
-      <div>
-        {caption}
+      <div className="p-10">
+        <div className="text-3xl font-bold mb-3">
+          {caption}
+        </div>
         <div className="flex h-full">
-          {previous}
+          <div className="mr-2">
+            {previous}
+          </div>
           <Note note={note} />
-          {after}
+          <div className="ml-2">
+            {after}
+          </div>
         </div>
       </div>
     )

@@ -36,7 +36,7 @@ export default function App() {  /* Define layout for client-side routing */
             <Route index element={<ListUsers />} />
             <Route path=":id" element={<User />} />
           </Route>
-        </Route>
+        </Route>  
 
         {/* User-specific dashboard */ }        
         <Route path="dashboard" element={<DashboardLayout />}>
@@ -48,12 +48,13 @@ export default function App() {  /* Define layout for client-side routing */
         {/* User-specific sources and notes for each source */}
         <Route path="sources">
           <Route index element={<ListSources />} />
-          <Route path=":source-id"/>
+          <Route path=":sourceID">
             <Route index element={<Source/>} /> {/* TODO: add listnotes to source */}
-            <Route path=":note-id" element={<NoteViewer/>} />
+            <Route path=":noteID" element={<NoteViewer/>} />
           </Route>
         </Route>
 
+      </Route>
     </Routes>
   )
 }

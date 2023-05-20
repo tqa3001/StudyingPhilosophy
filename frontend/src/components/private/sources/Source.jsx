@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { selectSourceById, useGetSourcesQuery } from "../../../features/sources/sourcesApiSlice";
 import NotePreview from "../notes/NotePreview";
 import { useState } from "react";
@@ -8,8 +8,8 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Source() {
-  const location = useLocation(); 
-  const { sourceID } = location.state; 
+  
+  const { sourceID } = useParams();
   const { isLoading, isError } = useGetSourcesQuery(); 
   const source = useSelector((state) => selectSourceById(state, sourceID)); 
   
@@ -60,7 +60,9 @@ export default function Source() {
         <hr className="h-1 bg-green-600"/>
         {newNoteForm}
         {console.log(source.noteIDs)}
-        {source.noteIDs.map(noteID => <div key={noteID} className="m-1"><NotePreview noteID={noteID}/></div>)}
+        {source.noteIDs.map(noteID => <div key={noteID} className="m-1">
+          <NotePreview sourceID={sourceID} noteID={noteID}/>
+        </div>)}
       </div>
     )
   }
