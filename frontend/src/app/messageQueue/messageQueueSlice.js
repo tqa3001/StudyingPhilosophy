@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import deepCopy from "../../helpers/deepcopy";
 
 /* At first I implemented a queue class which made me realize that OOP doesn't work so well with React */
 
