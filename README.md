@@ -4,7 +4,7 @@ Features: CRUD operations on users, sources, notes. Notes are given properties t
 
 ## Usage
 - `npm install` then `npm run dev` for both backend and frontend. 
-- APIs are at [http://localhost:1001/](http://localhost:1001/)
+- APIs are at [https://philnotes-backend.onrender.com/](https://philnotes-backend.onrender.com/)
 - Client-side UI is at [http://localhost:1002/](http://localhost:1002/)
 
 ## Todo
