@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faArrowRight, faEdit, faRemove } from "@fortawesome/free-solid-svg-icons";
-import { TypeToStyleAttributes } from "../../styles/noteStyle";
+import { TypeToStyleAttributes } from "../../../styles/noteStyle";
 import { useState } from "react";
-import DeleteNotePopup from "./Delete/DeleteNotePopup";
+import DeleteNotePopup from "./DeleteNotePopup";
 import CreateNewNote from "./CreateNewNote";
 import { useSelector } from "react-redux";
-import { selectSourceById, useGetSourcesQuery } from "../sources/sourcesApiSlice";
+import { selectSourceById, useGetSourcesQuery } from "../../../features/sources/sourcesApiSlice";
 
 export default function Note({ note }) {
   /* How do I refactor this mess? */

@@ -1,6 +1,6 @@
-import "../../styles/tableStyle.css"; 
-import { buttonStyleStr } from "../../styles/buttonStyle"; 
-import { useAddNoteMutation } from "./notesApiSlice"; 
+import "../../../styles/tableStyle.css"; 
+import { buttonStyleStr } from "../../../styles/buttonStyle"; 
+import { useAddNoteMutation } from "../../../features/notes/notesApiSlice"; 
 import { useNavigate } from "react-router-dom";
 
 export default function CreateNewNote({ source, note }) {

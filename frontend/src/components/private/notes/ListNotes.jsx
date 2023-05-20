@@ -1,4 +1,4 @@
-import { useGetNotesQuery } from "./notesApiSlice"
+import { useGetNotesQuery } from "../../../features/notes/notesApiSlice"
 import NotePreview from "./NotePreview";
 
 export default function ListNotes() {

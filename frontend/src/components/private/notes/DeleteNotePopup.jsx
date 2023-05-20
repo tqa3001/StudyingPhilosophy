@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectNoteById, useDeleteNoteMutation, useGetNotesQuery, useGetTreeQuery } from "../notesApiSlice";
+import { selectNoteById, useDeleteNoteMutation, useGetNotesQuery, useGetTreeQuery } from "../../../features/notes/notesApiSlice";
 import { redirect } from "react-router-dom";
 
 export default function DeleteNotePopup({ noteID }) {

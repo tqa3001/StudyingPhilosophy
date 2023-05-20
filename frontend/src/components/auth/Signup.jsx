@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useAddUserMutation } from "../users/usersApiSlice"
+import { useAddUserMutation } from "../../features/users/usersApiSlice"
 import { useNavigate } from "react-router-dom";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import newMessage from "../../app/messageQueue/newMessage";
-import inputIsValid from "./inputIsValid";
+import inputIsValid from "../../helpers/inputIsValid";
 
 export default function Signup() {
   const [addUser, queryResult] = useAddUserMutation();

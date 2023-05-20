@@ -37,16 +37,13 @@ export default function DashboardHeader() {
     </button>
   }
   console.log("BALLSACK!", currentUser);
-  const toLogin = () => navigate('/login'); 
-  let userInfo = currentUser.userID ?? <div onClick={toLogin}>Login</div>
   return (
-    <header className="bg-green-700 text-white px-5 py-2">
+    <header>
       <div className="flex justify-between h-full">
         <div className="text-2xl font-bold flex h-fit my-auto mx-5">
-          StudyPhilosophy v.0.0.1
+          User's Dashboard
         </div>
         <div className="flex">
-          <div>{userInfo}</div>
           <div>{backButton}</div>
           <div>{homeButton}</div>
           <div>{settingsButton}</div>

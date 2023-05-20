@@ -1,8 +1,8 @@
 import Note from "./Note";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { selectNoteById, useGetNotesQuery } from "./notesApiSlice";
-import { selectSourceById, useGetSourcesQuery } from "../sources/sourcesApiSlice";
+import { selectNoteById, useGetNotesQuery } from "../../../features/notes/notesApiSlice";
+import { selectSourceById, useGetSourcesQuery } from "../../../features/sources/sourcesApiSlice";
 import NotePreview from "./NotePreview";
 
 export default function NoteViewer() {

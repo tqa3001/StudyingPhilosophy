@@ -1,9 +1,9 @@
-import { selectSourceById, useGetSourcesQuery } from "./sourcesApiSlice";
+import { selectSourceById, useGetSourcesQuery } from "../../../features/sources/sourcesApiSlice";
 import { faRotate } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom"; 
 // hmm.. some how without this line nodejs will still take the import in ListUsers.jsx and apply it to this file
-import "../../styles/tableStyle.css" 
+import "../../../styles/tableStyle.css" 
 
 
 export default function ListSources() {

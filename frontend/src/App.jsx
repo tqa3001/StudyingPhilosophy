@@ -1,23 +1,24 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import Layout from './components/Layout'
-import Landing from './components/Landing'
-import Login from './features/auth/Login'
-import Signup from './features/auth/Signup'
-import DashboardLayout from './components/DashboardLayout'
-import Welcome from './features/auth/Welcome'
-import ListUsers from './features/users/ListUsers'
-import ListSources from './features/sources/ListSources'
-import ListNotes from './features/notes/ListNotes'
-import User from './features/users/User'
-import Source from './features/sources/Source'
-import NoteViewer from './features/notes/NoteViewer'
+import Layout from './components/Layout'  
+import Landing from './components/auth/Landing'
+import Login from './components/auth/Login'
+import Signup from './components/auth/Signup'
+import Admin from './components/admin/Admin'
+import DashboardLayout from './components/private/dashboard/DashboardLayout'
+import Dashboard from './components/private/dashboard/Dashboard'
+import ListUsers from './components/admin/ListUsers'
+import ListSources from './components/private/sources/ListSources'
+import ListNotes from './components/private/notes/ListNotes'
+import User from './components/private/users/User'
+import Source from './components/private/sources/Source'
+import NoteViewer from './components/private/notes/NoteViewer'
 
 export default function App() {  /* Define layout for client-side routing */
   return (
     <Routes>
       <Route path="/" element={<Layout />}>  
-      
+
         {/* Landing page */}
         <Route index element={<Landing />} />
 
@@ -30,6 +31,7 @@ export default function App() {  /* Define layout for client-side routing */
 
         {/* Admin routes */}
         <Route path="admin">
+          <Route index element={<Admin />}/>
           <Route path="users">
             <Route index element={<ListUsers />} />
             <Route path=":id" element={<User/>} />
@@ -38,7 +40,7 @@ export default function App() {  /* Define layout for client-side routing */
 
         {/* User-specific dashboard */ }        
         <Route path="dashboard" element={<DashboardLayout />}>
-          <Route index element={<Welcome />} />
+          <Route index element={<Dashboard />} />
         </Route> 
 
         {/* User-specific sources and notes for each source */}

@@ -9,7 +9,7 @@ export default function Layout() {
   return (
     <div className="h-full">
       <div className="flex justify-between bg-black text-white">
-        <h1 className="p-3 ">Visca el' Barca!</h1>
+        <h1 className="p-3 ">StudyPhilosophy v.0.0.1</h1>
         <a href="https://github.com/tqa3001/StudyingPhilosophy" className="my-auto mx-4 w-5 fa-lg">
           <FontAwesomeIcon icon={faGithub} />
         </a>

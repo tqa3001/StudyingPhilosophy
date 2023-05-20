@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { selectSourceById, useGetSourcesQuery } from "./sourcesApiSlice";
+import { selectSourceById, useGetSourcesQuery } from "../../../features/sources/sourcesApiSlice";
 import NotePreview from "../notes/NotePreview";
 import { useState } from "react";
 import CreateNewNote from "../notes/CreateNewNote";

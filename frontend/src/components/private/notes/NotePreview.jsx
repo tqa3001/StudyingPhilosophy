@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { selectNoteById, useGetNotesQuery } from "./notesApiSlice";
+import { selectNoteById, useGetNotesQuery } from "../../../features/notes/notesApiSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TypeToStyleAttributes } from "../../styles/noteStyle"; 
+import { TypeToStyleAttributes } from "../../../styles/noteStyle"; 
 
 export default function NotePreview({ noteID }) {
   const { isLoading, isError } = useGetNotesQuery(); 

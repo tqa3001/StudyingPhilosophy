@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { useGetUsersQuery, selectUserById } from "./usersApiSlice";
-import { useGetSourcesQuery } from "../sources/sourcesApiSlice";
+import { useGetUsersQuery, selectUserById } from "../../../features/users/usersApiSlice";
+import { useGetSourcesQuery } from "../../../features/sources/sourcesApiSlice";
 import { Link } from "react-router-dom";
 
 export default function User() {
