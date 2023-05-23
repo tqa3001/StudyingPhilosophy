@@ -61,12 +61,8 @@ const authorize = asyncHandler(async (req, res, next) => {
   next(); 
 });
 
-const logout = asyncHandler((req, res) => {
-  console.log("ONE TWO BUCKLE MY SHOES");
-  req.session.destroy((err) => {
-    console.log("cannot access session to destroy");
-    res.status(500).json({"msg": "Internal server error"})
-  });
+const logout = asyncHandler(async (req, res) => {
+  req.session.destroy();
   res.status(200).json({"msg": "Successfully logged out"});
 });
 

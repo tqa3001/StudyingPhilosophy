@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../features/auth/authApiSlice";
 import inputIsValid from "../../helpers/inputIsValid";
 import newMessage from "../../app/messageQueue/newMessage";
-import store from "../../app/store";
+import { store } from "../../app/store";
 import { loginIsSuccessful } from "../../app/session/sessionSlice";
 
 export default function Login() {

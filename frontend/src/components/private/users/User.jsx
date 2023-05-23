@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ProfileDetails from "./ProfileDetails";
 import { danger, primary } from "../../../styles/componentStyle";
 import { logoutIsSent } from "../../../app/session/sessionSlice";
-import store from "../../../app/store";
+import { store } from "../../../app/store";
 import { useLogoutMutation } from "../../../features/auth/authApiSlice";
 import newMessage from "../../../app/messageQueue/newMessage";
 
