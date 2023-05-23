@@ -11,7 +11,6 @@ import newMessage from "../../../app/messageQueue/newMessage";
 
 export default function User() {
   const userID = useSelector(state => state.session.userID);
-  console.log(userID);
   const {
     data: users, error, isUninitialized, isLoading, isSuccess, isError
   } = useGetUsersQuery(); 

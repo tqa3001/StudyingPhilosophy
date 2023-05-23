@@ -27,7 +27,11 @@ const getSourcesFromUserID = asyncHandler(async (req, res) => {
   if (!userID) {
     return res.status(400).json({"msg": "Error: Invalid user ID"}); 
   } 
-  const user = await User.findById(userID); 
+  if (String(req.session.userID) !== userID) {
+    console.log(req.session.userID, userID);
+    return res.status(401).json({"msg": "Invalid access"});
+  }
+  const user = await User.findById(userID);
   if (!user) {
     return res.status(400).json({"msg": "Error: find user with such ID"}); 
   } 

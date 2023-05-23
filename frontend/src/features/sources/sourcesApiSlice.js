@@ -12,7 +12,6 @@ const sourcesApiSlice = apiSlice.injectEndpoints({
       query: (userID) => (userID ? `/sources/${userID}` : '/sources'), 
       validateStatus: 
         (response, result) => {
-          console.log("bruh moe ment", response, result);
           return (response.status === 200 && !result.isError)
         }, 
       transformResponse:  // add id (since mongo uses _id) and normalize
