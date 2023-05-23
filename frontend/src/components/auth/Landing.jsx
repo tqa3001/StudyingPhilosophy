@@ -6,7 +6,10 @@ export default function Landing() {
     "text-white py-2 px-5 rounded-full bg-blue-500 text-center" +
     " hover:bg-blue-700";
   const state = useSelector(state => state);
+
+  console.log("cookies: ", JSON.stringify(document.cookie));
   console.log("STATE:\n", state);
+
   let customizedEntry = null;
   if (state.session.sessionID == null) {
     customizedEntry = (

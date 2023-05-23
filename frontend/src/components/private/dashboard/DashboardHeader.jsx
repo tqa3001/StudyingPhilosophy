@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHouse, faArrowLeft, faGear } from '@fortawesome/free-solid-svg-icons'
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 export default function DashboardHeader() {
@@ -30,14 +30,14 @@ export default function DashboardHeader() {
     </Link>  
   }
   if (pathname !== "/settings") { // route will be implemented later. 
-    settingsButton = <button
+    settingsButton = <Link
+      to="/profile"
       className="border-2 rounded-md p-2 mx-1 px-3"
       title="Home"
     >
       <FontAwesomeIcon icon={faGear}/>
-    </button>
+    </Link>
   }
-  console.log("BALLSACK!", currentUser);
   return (
     <header>
       <div className="flex justify-between h-full">

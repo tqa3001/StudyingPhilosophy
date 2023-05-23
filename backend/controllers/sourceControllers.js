@@ -9,7 +9,7 @@ const User = require('../models/User');
  */
 const getPublicSources = asyncHandler(async (req, res) => {
   const sources = await Source.find({}); 
-  console.log(sources); 
+  // console.log(sources); 
   if (!sources) {
     return res.status(500).json({
       "msg": "Error: Internal server error 500"

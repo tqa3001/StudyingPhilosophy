@@ -42,11 +42,9 @@ export default function Signup() {
     if (checkInputValidity()) {
       try {
         const response = await addUser(formDataObject).unwrap();
-        console.log("slay new user", response); 
-        newMessage({type: "success", message: response.msg });
-        navigate('/dashboard');
+        newMessage({type: "success", message: response.msg + ". Please log in." });
+        navigate('/login');
       } catch(error) {
-        console.log("bruh error nice!", error);
         /* Refactor? */
         let username = document.getElementById("username"); 
         username.style.borderColor = "red";

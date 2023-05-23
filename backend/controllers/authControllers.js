@@ -56,9 +56,18 @@ const authorize = asyncHandler(async (req, res, next) => {
     logEvents(`Unauthorized access: ${req.url} | ${req.method} | ${req.header.origins} | 
       SessionID: ${sessionID}`, 
       "errors.log"); 
-    return res.status(401).json({"err": "Unauthorized access."}); 
+    return res.status(401).json({"msg": "Unauthorized access."}); 
   }
   next(); 
 });
 
-module.exports = { authenticate, authorize }
+const logout = asyncHandler((req, res) => {
+  console.log("ONE TWO BUCKLE MY SHOES");
+  req.session.destroy((err) => {
+    console.log("cannot access session to destroy");
+    res.status(500).json({"msg": "Internal server error"})
+  });
+  res.status(200).json({"msg": "Successfully logged out"});
+});
+
+module.exports = { authenticate, authorize, logout }

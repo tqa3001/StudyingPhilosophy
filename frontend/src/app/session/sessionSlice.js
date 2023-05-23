@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { initializeConnect } from "react-redux/es/components/connect";
 /**
  * Actions, ideally, should report things that happened, not make things happen.
  * Compare: normal redux vs redux toolkit creating a "slice"
@@ -8,13 +9,17 @@ import { createSlice } from "@reduxjs/toolkit"
  *   + Action creators: slice.actions
  */
 
+const initialState = {
+  sessionID: (document.cookie == "" ? null : document.cookie),
+  userID: null,
+  errorMessage: null
+};
+
+console.log(initialState);
+
 const sessionSlice = createSlice({
   name: "session",
-  initialState: {
-    sessionID: null,
-    userID: null,
-    errorMessage: null
-  },
+  initialState: initialState,
   reducers: {  
     loginIsSuccessful: (state, action) => { 
       return action.payload;
@@ -25,9 +30,12 @@ const sessionSlice = createSlice({
         userID: null,
         errorMessage: action.payload.err 
       };  // according to backend?
+    },
+    logoutIsSent: (state) => {
+      return initialState;
     }
   }
 }); 
 
 export default sessionSlice.reducer;
-export const { loginIsSuccessful, loginIsFailure } = sessionSlice.actions;
+export const { loginIsSuccessful, loginIsFailure, logoutIsSent } = sessionSlice.actions;

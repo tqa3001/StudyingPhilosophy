@@ -21,7 +21,6 @@ export default function Login() {
           type: "success",
           message: response.msg
         }); 
-        console.log("bruh cum ass tits", response);
         store.dispatch(loginIsSuccessful({
           sessionID: response.sessionID,
           userID: response.userID,

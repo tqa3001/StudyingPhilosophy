@@ -4,5 +4,6 @@ const loginLimiter = require("../middleware/rateLimiter");
 
 router.route('/') // syntax reminder: app.use(), router.route()
   .post(loginLimiter, authControllers.authenticate)
+  .delete(authControllers.logout);
 
 module.exports = router; 
