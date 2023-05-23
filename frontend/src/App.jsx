@@ -9,7 +9,7 @@ import DashboardLayout from './components/private/dashboard/DashboardLayout'
 import Dashboard from './components/private/dashboard/Dashboard'
 import ListUsers from './components/admin/ListUsers'
 import ListSources from './components/private/sources/ListSources'
-import ListNotes from './components/private/notes/ListNotes'
+import ListAllSources from './components/private/sources/ListAllSources'
 import User from './components/private/users/User'
 import Source from './components/private/sources/Source'
 import NoteViewer from './components/private/notes/NoteViewer'
@@ -27,7 +27,7 @@ export default function App() {  /* Define layout for client-side routing */
         <Route path="signup" element={<Signup />} />
 
         {/* Public routes */}
-        <Route path="public" />
+        <Route path="public" element={<ListAllSources />}/>
 
         {/* Admin routes */}
         <Route path="admin">

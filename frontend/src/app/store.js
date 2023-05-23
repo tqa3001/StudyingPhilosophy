@@ -1,10 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./api/apiSlice"; 
 import sessionReducer from './session/sessionSlice';
 import messageQueueReducer from "./messageQueue/messageQueueSlice";
 import persistCombineReducers from "redux-persist/es/persistCombineReducers";
 import persistStore from "redux-persist/es/persistStore";
 import storage from "redux-persist/lib/storage"
+import persistReducer from "redux-persist/es/persistReducer";
 
 /* Basically adding default reducers + middlewares */
 
@@ -12,12 +13,12 @@ import storage from "redux-persist/lib/storage"
 const persistConfig = {
   key: 'root',
   storage,
-}
+};
 
-const rootReducer = persistCombineReducers(persistConfig, {
+const rootReducer = combineReducers({
   // apiSlice.reducerPath is 'api' (default value), if multiple apislices -> need different reducer paths
   [apiSlice.reducerPath]: apiSlice.reducer,   // this es2015 syntax is called "key interpolation"
-  session: sessionReducer,
+  session: persistReducer(persistConfig, sessionReducer),
   messageQueue: messageQueueReducer,
 }); // access: state.[apiSlice.reducerPath], state.form
 

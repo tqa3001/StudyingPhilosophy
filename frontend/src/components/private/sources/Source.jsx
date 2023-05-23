@@ -40,7 +40,7 @@ export default function Source() {
             <FontAwesomeIcon icon={faEdit}/>
           </button>
         </div>
-        <hr className="h-1 bg-green-600"/>
+        <hr className="h-1 bg-blue-500 mb-5 mt-2"/>
         <h2 className="font-italic text-blue-600">Origin: {source.origin}</h2>
         <div>URL: <a href="#">{source.url ?? "None"}</a></div>
         <br/>
@@ -51,13 +51,13 @@ export default function Source() {
             <button 
               id="newNoteButton"
               onClick={toggleFormVisibility}
-              className="border-2 border-black rounded-full w-fit px-5"
+              className="text-blue-500 hover:text-blue-700 w-fit px-5 border-black border-r-2"
             >{noteButtonText}</button>
             <button className="border-black underline border-r-2 rounded-l-full px-5">Category</button>
             <button className="border-black underline rounded-r-full px-5">Tree</button>
           </div>
         </div>
-        <hr className="h-1 bg-green-600"/>
+        <hr className="h-1 bg-blue-500 mb-5"/>
         {newNoteForm}
         {console.log(source.noteIDs)}
         {source.noteIDs.map(noteID => <div key={noteID} className="m-1">

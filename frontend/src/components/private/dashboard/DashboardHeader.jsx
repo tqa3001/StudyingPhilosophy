@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHouse, faArrowLeft, faGear } from '@fortawesome/free-solid-svg-icons'
+import { faHouse, faArrowLeft, faUser } from '@fortawesome/free-solid-svg-icons'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -29,14 +29,16 @@ export default function DashboardHeader() {
       <FontAwesomeIcon icon={faHouse} />
     </Link>  
   }
-  if (pathname !== "/settings") { // route will be implemented later. 
-    settingsButton = <Link
-      to="/profile"
-      className="border-2 rounded-md p-2 mx-1 px-3"
-      title="Home"
-    >
-      <FontAwesomeIcon icon={faGear}/>
-    </Link>
+  if (pathname !== "/profile") {
+    settingsButton = <div className="m-5">
+      <Link
+        to="/profile"
+        className="border-2 rounded-md p-2 mx-1 px-3"
+        title="Home"
+      >
+        <FontAwesomeIcon icon={faUser}/>
+      </Link>
+    </div>
   }
   return (
     <header>

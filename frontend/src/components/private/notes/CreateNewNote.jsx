@@ -2,6 +2,7 @@ import "../../../styles/tableStyle.css";
 import { buttonStyleStr } from "../../../styles/buttonStyle"; 
 import { useAddNoteMutation } from "../../../features/notes/notesApiSlice"; 
 import { useNavigate } from "react-router-dom";
+import { feature } from "../../../styles/componentStyle";
 
 export default function CreateNewNote({ source, note }) {
   const [ addNote, mutationResult ] = useAddNoteMutation(); 
@@ -27,7 +28,7 @@ export default function CreateNewNote({ source, note }) {
     </select>  
   ); 
   return (
-    <div className="p-5 rounded-lg">
+    <div className={feature + "px-10 py-10 rounded-lg hover:bg-gray-300"}>
       <div className="text-2xl font-bold">{title}</div>
       <form className="flex-col my-5" id="createNoteForm">
         <table>

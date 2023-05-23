@@ -9,6 +9,7 @@ export default function Landing() {
 
   console.log("cookies: ", JSON.stringify(document.cookie));
   console.log("STATE:\n", state);
+  console.log(document.cookie.indexOf('name=cock'))
 
   let customizedEntry = null;
   if (state.session.sessionID == null) {
