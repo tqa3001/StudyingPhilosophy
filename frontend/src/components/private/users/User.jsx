@@ -31,14 +31,14 @@ export default function User() {
   */
 
   /* For editting user details */
-  let showEditButton = null;
+  let showEditButton = <div className="flex flex-row-reverse font-bold" onClick={toggleEdit}>Cancel</div>
   if (!isEditting) {
     showEditButton = <div className="flex flex-row-reverse font-bold" onClick={toggleEdit}>Edit</div>;
   }
 
   /* Main display */
   let display = null; 
-  if (!userID || !user || !filtered_sources) {
+  if (!userID || !user) {
     display = (isError ? <div>Invalid User</div> : <div>Loading user...</div>)
   } else {
     display = (
@@ -47,7 +47,7 @@ export default function User() {
           <h1 className="text-2xl font-bold my-5">User: {user.username}</h1>
           {showEditButton}
         </div>
-        <ProfileDetails editMode={isEditting}/>
+        <ProfileDetails editMode={isEditting} user={user} />
       </div>
     )
   }
