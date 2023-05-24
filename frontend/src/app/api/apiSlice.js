@@ -8,8 +8,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const apiSlice = createApi({  /* reducer path is `api` */
   baseQuery: fetchBaseQuery({   
     /* basically a wrapper for fetch(). uncomment the line below for dev */
-    baseUrl: "http://localhost:" + `${BACKEND_PORT}`,
-    // baseUrl: "https://philnotes-backend.onrender.com",
+    // baseUrl: "http://localhost:" + `${BACKEND_PORT}`,
+    baseUrl: "https://philnotes-backend.onrender.com",
     credentials: 'include'  
     /**
      * Default Fetch API requests do not contain user credentials 
